@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+	<!-- JedisPoolConfig -->
+	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxTotal" value="10" />
+		<property name="maxIdle" value="8" />
+		<property name="minIdle" value="1" />
+	</bean>
+
+	<!-- JedisPool -->
+	<bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+		<constructor-arg name="poolConfig" ref="poolConfig" />
+		<constructor-arg name="host" value="192.168.179.128" />
+		<constructor-arg name="port" value="6379" />
+	</bean>
+
+	<!-- springboot整合原生jedis
+		@Configuration
+		public class JedisConfig {
+		    @Bean
+		    public JedisPoolConfig poolConfig() {
+		      JedisPoolConfig poolconfig = new JedisPoolConfig();
+		      poolConfg.setMaxTotal(10);
+		      poolConfg.setMaxIdle(8);
+		      poolConfg.setMinIdle(1);
+		      return poolConfig;  
+		    }
+		    
+		    @Bean
+		    public JedisPool jedisPool() {
+		       JedisPool pool = new JedisPool(poolConfig(), "192.168.179.128", 6379);
+		       return pool;
+		    }
+		}
+	 -->
+
+
+</beans>

@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+	<!-- JedisPoolConfig -->
+	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxTotal" value="10" />
+		<property name="maxIdle" value="8" />
+		<property name="minIdle" value="1" />
+	</bean>
+	
+	<!-- HostAndPort 6个
+     constructor-arg name="host" value="ip地址"
+     constructor-arg name="port" value="6001" 
+	 -->
+	<bean id="node6001" class="redis.clients.jedis.HostAndPort">
+		<constructor-arg name="host" value="192.168.179.128" />
+		<constructor-arg name="port" value="6001" />
+	</bean>
+	<bean id="node6002" class="redis.clients.jedis.HostAndPort">
+		<constructor-arg name="host" value="192.168.179.128" />
+		<constructor-arg name="port" value="6002" />
+	</bean>	
+	<bean id="node6003" class="redis.clients.jedis.HostAndPort">
+		<constructor-arg name="host" value="192.168.179.128" />
+		<constructor-arg name="port" value="6003" />
+	</bean>
+	<bean id="node6004" class="redis.clients.jedis.HostAndPort">
+		<constructor-arg name="host" value="192.168.179.128" />
+		<constructor-arg name="port" value="6004" />
+	</bean>
+	<bean id="node6005" class="redis.clients.jedis.HostAndPort">
+		<constructor-arg name="host" value="192.168.179.128" />
+		<constructor-arg name="port" value="6005" />
+	</bean>
+	<bean id="node6006" class="redis.clients.jedis.HostAndPort">
+		<constructor-arg name="host" value="192.168.179.128" />
+		<constructor-arg name="port" value="6006" />
+	</bean>	
+	
+	<bean id="cluster" class="redis.clients.jedis.JedisCluster">
+		<constructor-arg name="nodes">
+			<set>
+				<ref bean="node6001"/>
+				<ref bean="node6002"/>
+				<ref bean="node6003"/>
+				<ref bean="node6004"/>
+				<ref bean="node6005"/>
+				<ref bean="node6006"/>			
+			</set>
+		</constructor-arg>
+		<constructor-arg name="poolConfig" ref="poolConfig" />
+	</bean>	
+	<!-- JedisCluster
+		 <constructor-arg name="nodes">
+		   <set>
+		     <ref bean="node6001" />
+		     <ref bean="node6002" />
+		     ...
+		   </set>
+		 </constructor-arg>
+		 <constructor-arg name="poolConfig" ref="poolConfig" />
+	 -->
+
+
+</beans>

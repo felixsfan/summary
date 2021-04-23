@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>2.redis-String类型</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>String类型</h1>
+<h2>1. set命令</h2>
+<pre><code>作用：赋值；
+格式：set key value [expiration EX seconds|PX milliseconds] [NX|XX]
+EX seconds -- Set the specified expire time, in seconds.
+PX milliseconds -- Set the specified expire time, in milliseconds.
+NX -- Only set the key if it does not already exist.
+XX -- Only set the key if it already exist.
+</code></pre>
+
+<h5>1.1 举例</h5>
+<pre><code>127.0.0.1:6379&gt; set name etoak
+OK
+</code></pre>
+
+<h5>1.2 设置age为10，5秒后失效</h5>
+<pre><code>127.0.0.1:6379&gt; set age 10 ex 5
+OK
+127.0.0.1:6379&gt; get age
+&quot;10&quot;
+127.0.0.1:6379&gt; get age
+ (nil)
+</code></pre>
+
+<h5>1.3 为一个存在的key设置值</h5>
+<pre><code>127.0.0.1:6379&gt; set name et1810 xx 
+OK
+127.0.0.1:6379&gt; get name
+&quot;et1810&quot;
+</code></pre>
+
+<h5>1.4 如最后加上xx，给一个不存在key(adress)设值，返回nil</h5>
+<pre><code>127.0.0.1:6379&gt; set address et1810 xx 
+(nil)
+</code></pre>
+
+<h5>1.5 为一个不存在的key设值</h5>
+<pre><code>127.0.0.1:6379&gt; set address bao_tu_quan_bei_lu nx 
+OK
+127.0.0.1:6379&gt; get address
+&quot;bao_tu_qian_bei_lu&quot;
+</code></pre>
+
+<h5>1.6 若最后加上nx，给一个存在的key(name)设值，返回nil</h5>
+<pre><code>127.0.0.1:6379&gt; set name et nx 
+(nil)
+</code></pre>
+
+<h2>2. get命令</h2>
+<pre><code>作用：获取指定key的值
+格式：get key
+举例
+127.0.0.1:6379&gt; get name
+</code></pre>
+
+<h2>3. setnx命令</h2>
+<pre><code>作用：当设置的key不存在时则进行设置；若key不存在，返回1；存在，返回0；
+格式：setnx key value
+举例
+127.0.0.1:6379&gt; setnx key1 1
+(integer) 1
+
+# 由于key1已经设置，所以再次设置就失败返回了0
+127.0.0.1:6379&gt; setnx key1 1 
+(integer) 0
+</code></pre>
+
+<h2>4. setex</h2>
+<pre><code>作用：设置key的有效时间；key失效后返回nil；
+格式：setex key seconds value
+举例
+# 设置key1的值为2，失效时间是5秒
+127.0.0.1:6379&gt; setex key1 5 2
+OK
+127.0.0.1:6379&gt; get key1
+&quot;2&quot;
+# 5秒后返回nil
+127.0.0.1:6379&gt; get key1
+(nil)
+</code></pre>
+
+<h2>5. setrange</h2>
+<pre><code>作用：替换字符串；
+格式：setrange key offset value
+     offset：从哪个位置开始替换，起始位置是0；
+举例
+127.0.0.1:6379&gt; set email luxilejn@163.com
+OK
+127.0.0.1:6379&gt; setrange email 9 126.com
+(integer) 16
+127.0.0.1:6379&gt; get email
+&quot;luxilejn@126.com&quot;
+</code></pre>
+
+<h2>6. getrange</h2>
+<pre><code>作用：获取字符串；
+格式：getrange key start end
+    start：开始下标
+    end：结束下标
+说明：左边起始下标是0，右边起始下标是-1
+
+举例
+127.0.0.1:6379&gt; getrange email 0 -1  获取整个字符串
+&quot;luxilejn@126.com&quot;
+127.0.0.1:6379&gt; getrange email 0 7
+&quot;luxilejn&quot;
+127.0.0.1:6379&gt; getrange email 9 -1
+&quot;126.com&quot;
+127.0.0.1:6379&gt; getrange email -3 -1
+&quot;com&quot;
+</code></pre>
+
+<h2>7. mset</h2>
+<pre><code>作用：一次为多个key赋值；
+格式：mset key value [key value ...]
+举例
+127.0.0.1:6379&gt; mset key1 hello key2 world
+OK
+127.0.0.1:6379&gt; get key1
+&quot;hello&quot;
+127.0.0.1:6379&gt; get key2
+&quot;world&quot;
+</code></pre>
+
+<h2>8. mget</h2>
+<pre><code>作用：一次获取key赋值；
+格式：mget key [key ...]
+
+举例
+127.0.0.1:6379&gt; mset key1 hello key2 world
+OK
+127.0.0.1:6379&gt; mget key1 key2
+1) &quot;hello&quot;
+2) &quot;world&quot;
+</code></pre>
+
+<h2>9. msetnx</h2>
+<pre><code>作用：一次为多个不存在的key设置值，成功返回1，表示所有的值都设置了；
+     失败返回0，表示没有任何值被设置，但是不会覆盖已经存在的 key。
+MSETNX is atomic, so all given keys are set at once.
+
+格式：msetnx key value [key value ...]
+
+举例
+# key3和key4都不存在，所以设置成功，返回1
+127.0.0.1:6379&gt; msetnx key3 3 key4 4
+(integer) 1
+127.0.0.1:6379&gt; mget key3 key4
+1) &quot;3&quot;
+2) &quot;4&quot;
+
+# 此时key4已经存在，所以设置失败，返回0
+127.0.0.1:6379&gt; msetnx key5 5 key4 6
+(integer) 0
+127.0.0.1:6379&gt; mget key5 key4
+1) (nil)
+2) &quot;4&quot;
+</code></pre>
+
+<h2>10. getset</h2>
+<pre><code>作用：设置key的值，并返回key的旧值；
+格式：getset key value
+
+举例
+127.0.0.1:6379&gt; set name et1810
+OK
+127.0.0.1:6379&gt; getset name etoaker
+&quot;et1810&quot;
+</code></pre>
+
+<h2>11. incr</h2>
+<pre><code>作用：对key的值做加加操作,并返回新的值。
+     如果incr一个不是int类型value的key会返回错误，incr一个不存在的 key，则设置key为1；
+
+格式：incr key
+
+举例
+127.0.0.1:6379&gt; set age 10
+OK
+127.0.0.1:6379&gt; incr age
+(integer) 11
+
+# incr一个不存的key，返回1
+127.0.0.1:6379&gt; incr count
+(integer) 1
+127.0.0.1:6379&gt; get count
+&quot;1&quot;
+</code></pre>
+
+<h2>12.decr</h2>
+<pre><code>作用：对key的值做的是减减操作；如果decr一个不存在key，则设置key为-1
+格式：decr key
+
+举例
+127.0.0.1:6379&gt; set age 10
+OK
+127.0.0.1:6379&gt; decr age
+(integer) 9
+127.0.0.1:6379&gt; decr length  decr一个不存的key，返回-1
+(integer) -1
+127.0.0.1:6379&gt; get length
+&quot;-1
+</code></pre>
+
+<h2>13. incrby</h2>
+<pre><code>作用：与incr类似，给定值相加；
+     若key不存在，会设置 key的值为给定的值(Redis认为不存在的key的value是0)；
+格式：incrby key increment
+
+举例
+127.0.0.1:6379&gt; incrby age 10
+(integer) 19
+127.0.0.1:6379&gt; incrby a 10   为不存在的a加10
+(integer) 10
+</code></pre>
+
+<h2>14. decrby</h2>
+<pre><code>作用：与decr类似，减去给定的值。
+格式：decrby key decrement
+
+举例
+127.0.0.1:6379&gt; set age 100
+OK
+127.0.0.1:6379&gt; decrby age 10
+(integer) 90
+127.0.0.1:6379&gt; decrby count 10  count不存在
+(integer) -10
+</code></pre>
+
+<h2>15. append</h2>
+<pre><code>作用：为指定的key的值追加value，返回新字符串值的长度。
+格式：append key value
+
+举例
+127.0.0.1:6379&gt; set email et1810
+OK
+127.0.0.1:6379&gt; append email @etoak.com
+(integer) 16
+127.0.0.1:6379&gt; get email
+et1810@etoak.com
+127.0.0.1:6379&gt; append age 99
+(integer) 4
+127.0.0.1:6379&gt; get age
+&quot;9099&quot;
+</code></pre>
+
+<h2>16. strlen</h2>
+<pre><code>作用：得到key对应value值的长度；
+格式：strlen key
+
+举例
+127.0.0.1:6379&gt; set name etoaker
+OK
+127.0.0.1:6379&gt; strlen name
+(integer) 7
+</code></pre>
+
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
