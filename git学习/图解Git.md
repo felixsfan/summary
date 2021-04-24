@@ -138,22 +138,6 @@ reset 命令把当前分支指向另一个位置，并且有选择的变动工�
 
 场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令`git reset HEAD file`，就回到了场景1，第二步按场景1操作
 
-#### git reset
-
-1. soft 参数：git reset –soft HEAD～1 或者git reset –soft HEAD^意为将版本库软回退1个版本，所谓软回退表示将本地版本库的头指针全部重置到指定版本，且将这次提交之后的所有变更都移动到暂存区 ,就是回到上面第2种情况，这个时候你的修改还在暂存区
-2. 默认的mixed参数：git reset HEAD～1 意为将版本库回退1个版本，将本地版本库的头指针全部重置到指定版本，且会重置暂存区，即这次提交之后的所有变更都移动到未暂存阶段就是工作区git add之前。
-3. hard参数：git reset –hard HEAD～1 意为将版本库回退1个版本，但是不仅仅是将本地版本库的头指针全部重置到指定版本，也会重置暂存区，并且会将工作区代码也回退到这个版本
-
-#### git checkout --readme.txt
-
-命令git checkout -- readme.txt意思就是，把readme.txt文件在工作区的修改全部撤销，这里有两种情况：
-
-一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；(上一次的git commit 后,修改readme.txt 但没有执行git add,回到上一次的git commit后的结果)
-
-一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。(修改readme.txt,并且git add,然后又修改了readme.txt, 此时执行git checkout,回到git add 后的状态)
-
-总之，就是让这个文件回到最近一次git commit或git add时的状态。
-
 ### Merge
 
 merge 命令把不同分支合并起来。合并前，索引必须和当前提交相同。如果另一个分支是当前提交的祖父节点，那么合并命令将什么也不做。 另一种情况是如果当前提交是另一个分支的祖父节点，就导致*fast-forward*合并。指向只是简单的移动，并生成一个新的提交。
@@ -206,18 +190,3 @@ cherry-pick命令"复制"一个提交节点并在当前分支做一次完全一�
 
 见尚硅谷教程
 
-## git本地分支和远程分支如何关联
-
-一、如何把本地新建分支同步到远程分支上（注：该分支在远程上没有）？
-二、又如何在本地把远程分支上新建分支同步到本地（本地没有该分支）？
-
-1.其实在从远程分支分出来的分支都是跟踪分支（track）,当对该分支进行`push`和`pull`时，如果该分支和远程分支同名`git`会知道推送到远程哪个分支，从哪个远程分支同步到本地分支。其实每次克隆一个仓库时，本地新建一个`master`分支来`track`远程`origin/master`。如果不同名，我们需要人为指定`git push origin branch_name`
-
-2.如果本地新建了一个分支`branch_name`，但是在远程没有，这时候`push`和`pull`指令就无法确定该跟踪谁,一般来说我们都会使其跟踪远程同名分支，所以可以利用`git push --set-upstream origin branch_name`，这样就可以自动在远程创建一个`branch_name`分支，然后本地分支会`track`该分支。后面再对该分支使用`push`和`pull`就自动同步。无需再指定分支。
-
-3.跟踪远程分支
-1）如果远程新建了一个分支，本地没有该分支，可以用`git checkout --track origin/branch_name`，这时候本地会新建一个分支名叫`branch_name`，会自动跟踪远程的同名分支`branch_name`。
-2）用上面中方法，得到的分支名永远和远程的分支名一样，如果想新建一个本地分支不同名字，同时跟踪一个远程分支可以利用。
-`git checkout -b new_branch_name branch_name`，这条指令本来是根据一个`branch_name`分支分出一个本地分支`new_branch_name`，但是如果所根据的分支`branch_name`是一个远程分支名，那么本地的分支会自动的track远程分支。建议跟踪分支和被跟踪远程分支同名。
-
-**总结：一般我们就用\**`git push --set-upstream origin branch_name`\**来在远程创建一个与本地`branch_name`同名的分支并跟踪；利用\**`git checkout --track origin/branch_name`\**来在本地创建一个与`branch_name`同名分支跟踪远程分支。**

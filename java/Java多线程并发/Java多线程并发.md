@@ -514,7 +514,7 @@ ptr_to_lock_record：轻量级锁状态下，指向栈中锁记录的指针。
 
 ptr_to_heavyweight_monitor：重量级锁状态下，指向对象监视器Monitor的指针
 
-**二.Klass Word（类指针）**
+**二.Class Word（类指针）**
 
 ​     用于存储对象的类型指针，该指针指向它的类元数据，JVM通过这个指针确定对象是哪个类的实例。该指针的位长度为JVM的一个字大小，即32位的JVM为32位，64位的JVM为64位
 
@@ -558,7 +558,7 @@ markOop.hpp 中 markOopDesc继承自oopDesc，　并扩展了自己的monitor方
 
 **锁存在哪个地方** ：锁存在于每个对象的 markOop 对象头中.对于为什么每个对象都可以成为锁呢？ 因为每个 Java Object 在 JVM 内部都有一个 native 的 C++ 对象 oop/oopDesc 与之对应，而对应的 oop/oopDesc 都会存在一个markOop 对象头，而这个对象头是存储锁的位置，里面还有对象监视器，即ObjectMonitor，所以这也是为什么每个对象都能成为锁的原因之一
 
-### 总结：
+### 总结
 
 #### 1.底层代码实现
 
@@ -590,7 +590,7 @@ markOop.hpp 中 markOopDesc继承自oopDesc，　并扩展了自己的monitor方
 
 ![img](C:\Users\felixsfan\Desktop\办公机备份\学习\java\Java多线程并发\images\20190111091608949.jpg)
 
-
+<img src="C:\Users\felixsfan\Desktop\办公机备份\学习\java\Java多线程并发\images\锁膨胀.png" style="zoom:50%;" />
 
 ## 锁分类
 
