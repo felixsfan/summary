@@ -286,6 +286,26 @@ git pull：相当于是从远程获取最新版本并merge到本地
 
 上述命令其实相当于git fetch 和 git merge。在实际使用中，git fetch更安全一些，因为在merge前，我们可以查看更新情况，然后再决定是否合并
 
+例如：
+
+```
+     A---B---C master on origin
+	/
+D---E---F---G master
+	^
+    origin/master in your repository
+```
+
+远程的`master`分支到了`C`，本地的开发到了`G`。
+
+```
+	 A---B---C origin/master
+	/         \
+D---E---F---G---H master
+```
+
+`git pull`之后会生成一个新的`H`，合并两个分支。
+
 ## Git 结合Github
 
 #### 1.1 创建远程库地址别名
@@ -563,3 +583,40 @@ git config --global i18n.commitencoding utf-8
 ```
 
 注意：如果是Linux系统，需要设置环境变量 `export LESSCHARSET=utf-8`
+
+#### git pull origin master与git pull --rebase origin master的区别
+
+区别：
+
+```
+git pull=git fetch + git merge
+git pull --rebase=git fetch+git rebase
+```
+
+例如：现在有两个分支：test和master，假设远端的master的代码已经更改了（在B基础上变动：C,E），test的代码更改了要提交代码（在B基础上变动：D,E），如下图：
+
+```
+      D---E test
+      /
+ A---B---C---F--- master
+```
+
+问题就来了，如果C,F和D,E的更改发生冲突，那么就需要我们合并冲突了，下面我们来看看git merge和git rebase怎么合并的
+
+git merge:
+
+```
+       D--------E
+      /          \
+ A---B---C---F----G---   test, master
+```
+
+git rebase
+
+```
+A---B---D---E---C‘---F‘---   test, master
+```
+
+对比可看出：git merge多出了一个新的节点G，会将远端master的代码和test本地的代码在这个G节点合并，之前的提交会分开去显示。
+
+git --rebase会将两个分支融合成一个线性的提交，不会形成新的节点。
