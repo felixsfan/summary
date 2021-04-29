@@ -809,8 +809,6 @@ epoll是Linux目前大规模网络并发程序开发的首选模型。在绝大�
 **3. multi-reactor 多线程模型**
 **4. multi-reactor 多进程模型**
 
-https://zhuanlan.zhihu.com/p/95662364
-
 ##### 2.3.6.1.1 **基于事件驱动的Reactor模式详解**
 
 **反应堆模式是一种思想，形式却有很多种。**
