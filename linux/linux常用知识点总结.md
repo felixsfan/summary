@@ -901,11 +901,11 @@ Linux 必须找到代表发生页面错误的内存区域的 vm_area_struct 结�
 
 登录系统后，在当前命令窗口下输入命令：
 
-![](C:\Users\felixsfan\Desktop\linux\images\4_20.png)
+![](C:\Users\felixsfan\Desktop\办公机备份\学习\linux\images\4_20.png)
 
 树状目录结构：
 
-![](C:\Users\felixsfan\Desktop\linux\images\d0c50-linux2bfile2bsystem2bhierarchy.jpg)
+![](C:\Users\felixsfan\Desktop\办公机备份\学习\linux\images\d0c50-linux2bfile2bsystem2bhierarchy.jpg)
 
 ## 3.2 各目录的功能
 
@@ -1663,7 +1663,13 @@ $ newgrp root
 
 # 6.磁盘的管理
 
+Linux磁盘管理好坏直接关系到整个系统的性能问题。
 
+Linux磁盘管理常用三个命令为df、du和fdisk。
+
+- df：列出文件系统的整体磁盘使用量
+- du：检查磁盘空间使用量
+- fdisk：用于磁盘分区
 
 # 7. shell
 
@@ -1867,7 +1873,7 @@ Shell 变量的这个特性和 [JavaScript](http://c.biancheng.net/js/) 中的�
 
 首先打开一个 Shell 窗口，定义一个变量 a 并赋值为 99，然后打印，这时在同一个 Shell 窗口中是可正确打印变量 a 的值的。然后再打开一个新的 Shell 窗口，同样打印变量 a 的值，但结果却为空，如图 1 所示。
 
-![](C:\Users\felixsfan\Desktop\办公机备份\linux\images\shell全局变量.png)
+![](C:\Users\felixsfan\Desktop\办公机备份\学习\linux\images\shell全局变量.png)
 
 这说明全局变量 a 仅仅在定义它的第一个 Shell 进程中有效，对新的 Shell 进程没有影响。这很好理解，就像小王家和小徐家都有一部电视机（变量名相同），但是同一时刻小王家和小徐家的电视中播放的节目可以是不同的（变量值不同）。
 
@@ -1910,7 +1916,7 @@ echo $b
 
 创建 Shell 子进程最简单的方式是运行 bash 命令，如图 2 所示。
 
-![](C:\Users\felixsfan\Desktop\办公机备份\linux\images\进入shell子进程.gif)
+![](C:\Users\felixsfan\Desktop\办公机备份\学习\linux\images\进入shell子进程.gif)
 
 ​                                图2：进入 Shell 子进程  
 
@@ -1942,7 +1948,7 @@ exit
 
 我们一直强调的是环境变量在 Shell 子进程中有效，并没有说它在所有的 Shell 进程中都有效；如果你通过终端创建了一个新的 Shell 窗口，那它就不是当前 Shell 的子进程，环境变量对这个新的 Shell 进程仍然是无效的。请看下图：
 
-![](C:\Users\felixsfan\Desktop\办公机备份\linux\images\shell1号窗口.gif)
+![](C:\Users\felixsfan\Desktop\办公机备份\学习\linux\images\shell1号窗口.gif)
 
 第一个窗口中的环境变量 a 在第二个窗口中就无效。
 
@@ -2186,7 +2192,7 @@ login_shell     off
 
 5) 在 [Linux 桌面环境](http://c.biancheng.net/view/2912.html)下打开终端时，为交互式的非登录 Shell。
 
-![](C:\Users\felixsfan\Desktop\办公机备份\linux\images\交互式非登录shell.gif)
+![](C:\Users\felixsfan\Desktop\办公机备份\学习\linux\images\交互式非登录shell.gif)
 
 ### 7.2.5 Shell配置文件加载
 
@@ -2377,7 +2383,7 @@ tar -xf FileName.tar：这条命令是解出FileName.tar包中所有文件，-x�
 
 # 10.Linux下载软件
 
-安装程序的方式：
+以centos为例，安装程序的方式：
 
 - 通用二进制格式：直接解压压缩文件，就可以使用。但一定要注意安装平台。
 - 软件包管理器：如RPM。
@@ -2881,7 +2887,7 @@ locate 指令可以快速定位文件路径。locate 指令**利用事先建立�
 
 ## **grep 指令和 管道符号 |**
 
-grep 过滤查找 ， 管道符，“|”，表示将前一个命令的处理结果输出传递给后面的命令处理。
+grep 过滤查找 ， 管道符：“|”，表示将前一个命令的处理结果输出传递给后面的命令处理。
 语法：grep [选项] 查找内容 源文件
 
 - -n显示行号
@@ -2893,9 +2899,198 @@ grep 过滤查找 ， 管道符，“|”，表示将前一个命令的处理结
 cat hello.txt | grep yes
 ```
 
-# 13. 任务调度
+# 13. Linux 性能分析汇总
 
-## 13.1 介绍
+## 13.1 性能分析工具
+
+首先来看一张图：
+
+<img src="C:\Users\felixsfan\Desktop\办公机备份\学习\linux\images\性能分析工具汇总.png" style="zoom:50%;" />
+
+上图是Brendan Gregg 的一次性能分析的分享，这里面的所有工具都可以通过man来获得它的帮助文档，下问简单介绍介绍一下常规的用法：
+
+## 13.2 vmstat--虚拟内存统计
+
+vmstat(VirtualMeomoryStatistics,虚拟内存统计) 是Linux中监控内存的常用工具,可对操作系统的虚拟内存、进程、CPU等的整体情况进行监视。
+
+vmstat的常规用法：vmstat interval times即每隔interval秒采样一次，共采样times次，如果省略times,则一直采集数据，直到用户手动停止为止。简单举个例子：
+
+![](C:\Users\felixsfan\Desktop\办公机备份\学习\linux\images\vmstat.png)
+
+可以使用ctrl+c停止vmstat采集数据。
+
+第一行显示了系统自启动以来的平均值，第二行开始显示现在正在发生的情况，接下来的行会显示每5秒间隔发生了什么，每一列的含义在头部，如下所示：
+
+- procs：r这一列显示了多少进程在等待cpu，b列显示多少进程正在不可中断的休眠（等待IO）。
+- memory：swapd列显示了多少块被换出了磁盘（页面交换），剩下的列显示了多少块是空闲的（未被使用），多少块正在被用作缓冲区，以及多少正在被用作操作系统的缓存。
+- swap：显示交换活动：每秒有多少块正在被换入（从磁盘）和换出（到磁盘）。
+- io：显示了多少块从块设备读取（bi）和写出（bo）,通常反映了硬盘I/O。
+- system：显示每秒中断(in)和上下文切换（cs）的数量。
+- cpu：显示所有的cpu时间花费在各类操作的百分比，包括执行用户代码（非内核），执行系统代码（内核），空闲以及等待IO。
+
+内存不足的表现：free  memory急剧减少，回收buffer和cacher也无济于事，大量使用交换分区（swpd）,页面交换（swap）频繁，读写磁盘数量（io）增多，缺页中断（in）增多，上下文切换（cs）次数增多，等待IO的进程数（b）增多，大量CPU时间用于等待IO（wa）
+
+## 13.3 iostat--用于报告中央处理器统计信息
+
+iostat用于报告中央处理器（CPU）统计信息和整个系统、适配器、tty 设备、磁盘和 CD-ROM 的输入/输出统计信息，默认显示了与vmstat相同的cpu使用信息，使用以下命令显示扩展的设备统计：
+
+![](C:\Users\felixsfan\Desktop\办公机备份\学习\linux\images\iostat.png)
+
+第一行显示的是自系统启动以来的平均值，然后显示增量的平均值，每个设备一行。
+
+常见linux的磁盘IO指标的缩写习惯：rq是request,r是read,w是write,qu是queue，sz是size,a是verage,tm是time,svc是service。
+
+- rrqm/s和wrqm/s：每秒合并的读和写请求，“合并的”意味着操作系统从队列中拿出多个逻辑请求合并为一个请求到实际磁盘。
+- r/s和w/s：每秒发送到设备的读和写请求数。
+- rsec/s和wsec/s：每秒读和写的扇区数。
+- avgrq –sz：请求的扇区数。
+- avgqu –sz：在设备队列中等待的请求数。
+- await：每个IO请求花费的时间。
+- svctm：实际请求（服务）时间。
+- %util：至少有一个活跃请求所占时间的百分比。
+
+## 13.4 dstat--系统监控工具
+
+dstat显示了cpu使用情况，磁盘io情况，网络发包情况和换页情况，输出是彩色的，可读性较强，相对于vmstat和iostat的输入更加详细且较为直观。在使用时，直接输入命令即可，当然也可以使用特定参数。
+
+如下：dstat –cdlmnpsy
+
+![](C:\Users\felixsfan\Desktop\办公机备份\学习\linux\images\dstat.png)
+
+## 13.5 iotop--LINUX进程实时监控工具
+
+iotop命令是专门显示硬盘IO的命令，界面风格类似top命令，可以显示IO负载具体是由哪个进程产生的。是一个用来监视磁盘I/O使用状况的top类工具，具有与top相似的UI，其中包括PID、用户、I/O、进程等相关信息。
+
+可以以非交互的方式使用：
+
+```
+iotop –bod interval，查看每个进程的I/O，可以使用pidstat，pidstat –d instat
+```
+
+## 13.6 pidstat--监控系统资源情况
+
+pidstat主要用于监控全部或指定进程占用系统资源的情况,如CPU,内存、设备IO、任务切换、线程等。
+
+使用方法：
+
+```
+pidstat –d interval
+#统计CPU使用信息
+pidstat –u interval
+#统计内存信息
+Pidstat –r interval
+```
+
+## 13.7 top
+
+top命令的汇总区域显示了五个方面的系统性能信息：
+
+- 负载：时间，登陆用户数，系统平均负载；
+- 进程：运行，睡眠，停止，僵尸；
+- cpu:用户态，核心态，NICE,空闲，等待IO,中断等；
+- 内存：总量，已用，空闲（系统角度），缓冲，缓存；
+- 交换分区：总量，已用，空闲
+
+任务区域默认显示：进程ID,有效用户，进程优先级，NICE值，进程使用的虚拟内存，物理内存和共享内存，进程状态，CPU占用率，内存占用率，累计CPU时间，进程命令行信息。
+
+## 13.8 htop
+
+htop 是Linux系统中的一个互动的进程查看器,一个文本模式的应用程序(在控制台或者X终端中),需要ncurses。
+
+![](C:\Users\felixsfan\Desktop\办公机备份\学习\linux\images\htop.png)
+
+htop可让用户交互式操作，支持颜色主题，可横向或纵向滚动浏览进程列表，并支持鼠标操作。
+
+与top相比，htop有以下优点：
+
+- 可以横向或者纵向滚动浏览进程列表，以便看到所有的进程和完整的命令行。
+- 在启动上，比top更快。
+- 杀进程时不需要输入进程号。
+- htop支持鼠标操作。
+
+## 13.9 mpstat
+
+mpstat 是Multiprocessor Statistics的缩写，是实时系统监控工具。其报告与CPU的一些统计信息，这些信息存放在/proc/stat文件中。在多CPUs系统里，其不但能查看所有CPU的平均状况信息，而且能够查看特定CPU的信息。常见用法：
+
+```
+mpstat –P ALL interval times
+```
+
+## 13.10 netstat
+
+Netstat用于显示与IP、TCP、UDP和ICMP协议相关的统计数据，一般用于检验本机各端口的网络连接情况。
+
+常见用法：
+
+```
+netstat –npl   #可以查看你要打开的端口是否已经打开。
+netstat –rn    #打印路由表信息。
+netstat –in    #提供系统上的接口信息，打印每个接口的MTU,输入分组数，输入错误，输出分组数，输出错误，冲突以及当前的输出队列的长度。
+```
+
+## 13.11 ps--显示当前进程的状态
+
+ps参数太多，具体使用方法可以参考man ps，
+
+常用的方法：
+
+```
+ps  aux  #hsserver
+ps –ef |grep #hundsun
+
+#杀掉某一程序的方法
+ps  aux | grep mysqld | grep –v grep | awk ‘{print $2 }’ xargs kill -9
+
+#杀掉僵尸进程
+ps –eal | awk ‘{if ($2 == “Z”){print $4}}’ | xargs kill -9
+```
+
+## 13.12 strace
+
+跟踪程序执行过程中产生的系统调用及接收到的信号，帮助分析程序或命令执行中遇到的异常情况。
+
+举例：查看mysqld在linux上加载哪种配置文件，可以通过运行下面的命令：
+
+```
+strace –e stat64 mysqld –print –defaults > /dev/null
+```
+
+## 13.13 uptime
+
+能够打印系统总共运行了多长时间和系统的平均负载，uptime命令最后输出的三个数字的含义分别是1分钟，5分钟，15分钟内系统的平均负荷。
+
+## 13.14 lsof
+
+lsof(list open files)是一个列出当前系统打开文件的工具。通过lsof工具能够查看这个列表对系统检测及排错，常见的用法：
+
+```
+#查看文件系统阻塞  
+lsof /boot
+
+#查看端口号被哪个进程占用   
+lsof  -i : 3306
+
+#查看用户打开哪些文件   
+lsof –u username
+
+#查看进程打开哪些文件   
+lsof –p  4838
+
+#查看远程已打开的网络链接  
+lsof –i @192.168.34.128
+```
+
+## 13.15 perf
+
+perf是Linux kernel自带的系统性能优化工具。优势在于与Linux Kernel的紧密结合，它可以最先应用到加入Kernel的new feature，用于查看热点函数，查看cashe miss的比率，从而帮助开发者来优化程序性能。
+
+性能调优工具如 perf，Oprofile 等的基本原理都是对被监测对象进行采样，最简单的情形是根据 tick 中断进行采样，即在 tick 中断内触发采样点，在采样点里判断程序当时的上下文。假如一个程序 90% 的时间都花费在函数 foo() 上，那么 90% 的采样点都应该落在函数 foo() 的上下文中。运气不可捉摸，但我想只要采样频率足够高，采样时间足够长，那么以上推论就比较可靠。因此，通过 tick 触发采样，我们便可以了解程序中哪些地方最耗时间，从而重点分析。
+
+汇总：结合以上常用的性能测试命令并联系文初的性能分析工具的图，就可以初步了解到性能分析过程中哪个方面的性能使用哪方面的工具（命令）。
+
+# 14. 任务调度
+
+## 14.1 介绍
 
 任务调度：是指系统在某个时间执行的特定的命令或程序。相当于Windows任务管理器。
 任务调度分类：
@@ -2912,19 +3107,19 @@ cat hello.txt | grep yes
 - -r：删除当前用户所有的crontab任务
 - service crond restart：[重启任务调度]任务的要求
 
-## 13.2 两种方式
+## 14.2 两种方式
 
 设置任务调度文件：/etc/crontab
 
 设置个人任务调度。执行 crontab –e 命令。接着输入任务到调度文件
 
-## 13.3 案例要求
+## 14.3 案例要求
 
 如：*/1 * * * * ls –l	/etc/ > /tmp/to.txt
 
 意思说每小时的每分钟执行 ls –l /etc/ > /tmp/to.txt 命令
 
-## 13.4 步骤如下
+## 14.4 步骤如下
 
 1) cron -e
 
@@ -2934,13 +3129,13 @@ cat hello.txt | grep yes
 
 4) 在每一分钟都会自动的调用 ls -l /etc >> /tmp/to.txt
 
-## 13.5 参数细节说明
+## 14.5 参数细节说明
 
-![](C:\Users\felixsfan\Desktop\办公机备份\linux\images\crontab参数格式.png)
-
-# 14. 磁盘分区、挂载
+![](C:\Users\felixsfan\Desktop\办公机备份\学习\linux\images\crontab参数格式.png)
 
 # 15. 进程管理
+
+
 
 # 16. ssh
 
@@ -3645,7 +3840,7 @@ pip install wordcloud-1.3.3-cp36-cp36m-win32.whl
 
 **下载地址**http://www.lfd.uci.edu/~gohlke/pythonlibs/
 
-![](C:\Users\felixsfan\Desktop\办公机备份\linux\images\mysqldb下载.png)
+![](C:\Users\felixsfan\Desktop\办公机备份\学习\linux\images\mysqldb下载.png)
 
 #### 19.2.1.3 setup.py 安装
 
