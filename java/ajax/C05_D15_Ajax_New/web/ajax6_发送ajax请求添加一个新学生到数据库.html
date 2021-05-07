@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>添加学生</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/style.css"/>
+        <style>
+            .red{color:red;}
+            .green{color:green;}
+        </style>
+        <!--编写自己的js代码前，先引入jQuery文件--> 
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <script>
+            $(document).ready(function () {
+
+                //处理id为btn_add的按钮的点击事件
+                $("#btn_add").click(function () {
+
+                    //调用jQuery提供的ajax函数发送ajax请求给servlet7这个Servlet，
+                    //提交表单中的5个数据，添加一名新的学生到数据库中
+                    $.ajax({
+                        url: 'servlet7', //请求发送给url为servlet7的Servlet
+                        type: 'POST', //请求发送方式可以用GET或POST等
+                        data: $("#registerForm").serialize(), //提交id为registerForm的表单中的所有数据
+                        success: function (data) { //返回的数据是一个json对象，包含两个数据，msg和class，也就是消息和消息的样式类名称
+                            $("#msg").html(data.msg);
+                            $("#msg").removeClass("red"); 
+                            $("#msg").removeClass("green");
+                            $("#msg").addClass(data.class);
+                        },
+                        error: function () { //error属性指定如果请求失败，要调用的函数
+                            alert("出现错误!");
+                        }
+                    });
+                });
+            });
+
+        </script>
+
+    </head>
+    <body>
+
+        <div class="container">
+
+            <h1 class="text-center text-danger">添加学生</h1>
+            <hr>
+            <br>
+
+            <p>在该页面上，我们发送一个ajax请求给Servlet7，发送输入的5项信息给服务器，让服务器完成添加新学生到数据库，并根据服务器返回的消息，提示用户是否添加成功！</p>
+            <br>
+
+            <!--该表单提交要添加的新学生的信息-->
+            <form class="form-inline" id="registerForm">
+                学号：<input type="text" name="srollno" placeholder="示例：2017408888" class="form-control">
+                <br><br>
+                密码：<input type="text" name="spwd" placeholder="密码不超过30个字符"  class="form-control">
+                <br><br>
+                姓名：<input type="text" name="sname" placeholder="姓名不超过4个字符" class="form-control">
+                <br><br>
+                性别：<select name="sgender"  class="form-control">
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+                <br><br>
+                班级：<select name="sbatch" class="form-control">
+                    <option value="17软件J03">17软件J03</option>
+                    <option value="17软件J04">17软件J04</option>
+                    <option value="17软件J06">17软件J06</option>
+                </select>
+                <br><br>
+                <button id="btn_add" type="button" class="btn btn-sm btn-success">添加新学生</button>
+            </form>
+
+            <br><br>
+
+            <div>
+                <span id="msg"></span>
+            </div>
+
+        </div>
+    </body>
+</html>

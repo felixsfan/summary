@@ -1,0 +1,15 @@
+
+table th{
+    text-align: center;
+}
+
+p{
+    color: darkcyan;
+    font-size: 16px;
+}
+
+p:before{
+    content:"*说明：";
+    font-weight: bold;
+    color:brown;
+}

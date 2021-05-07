@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>班级学生列表</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/style.css"/>
+        <!--编写自己的js代码前，先引入jQuery文件--> 
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <script>
+            
+            //该函数用于传入一个学号，删除对应的学生
+            function deleteStudent(rollno) {
+                
+                //这里调用jQuery的ajax函数实现发送ajax请求，删除一个学生，并删除表格中对应的行
+                $.ajax({
+                    url: 'servlet6', //请求发送给url为servlet6的Servlet
+                    type: 'GET', //请求发送方式可以用GET或POST等
+                    data: {srollno: rollno}, //发送一个请求参数，名为srollno，参数值为传入的rollno变量的值
+                    success: function (flag) { //服务器端返回一个true或false的标记值，用于判断是否删除成功
+                        if (flag) //如果服务器端从数据库删除学生成功
+                            $("#tr" + rollno).remove(); //删除id为tr学号，如tr201720444的tr元素，也就是删除该学生对应的行
+                    },
+                    error: function () { //error属性指定如果请求失败，要调用的函数
+                        alert("出现错误!");
+                    }
+                });
+            }
+
+
+            $(document).ready(function () {
+
+
+                //处理id为btn_search的按钮的点击事件
+                $("#btn_search").click(function () {
+
+                    //这里调用jQuery的ajax函数实现发送ajax请求，发送一个班级名称，获取学生数据，显示在id为studentTable的表格中
+                    $.ajax({
+                        url: 'servlet5', //请求发送给url为servlet5的Servlet
+                        type: 'GET',     //请求发送方式可以用GET或POST等
+                        data: {batchName: $("#batchName").val()}, //发送一个请求参数，参数名为batchName，参数值为id为batchName的元素的value
+                        success: function (data) { //这次服务器返回的数据是一个列表，只是转换成了json数组
+                            //表格中可能上次有数据，所以每次输出班级学生列表前，清除原有内容
+                            //这里清除的是id为studentTable的元素中class为datarow的行，也就是所有的数据行
+                            //因为不想连标题行都清除了，所以给数据行添加了名为datarow的class
+                            $("#studentTable .datarow").remove();
+                            
+                            //调用jQuery的each函数遍历json数组中的每个json对象
+                            //each函数的第一个参数是要遍历的数据集合，也就是服务器返回的json数组data
+                            //each函数的第二个参数是一个函数，说明要对数组中的每个json对象执行的操作
+                                //该函数可以接受两个参数，第一个index为当前遍历的json对象在数组中的索引，index这个名称可以随便改
+                                //该函数的第二个参数s是表示当前遍历的对象，每个对象都表示一个学生的信息，s这个名称可以随便改
+                            $.each(data, function (index, s) {
+                                //每次遍历一个学生数据，就向id为studentTable的表格中追加一行数据
+                                $("#studentTable").append(
+                                        //打印每行的时候给每个tr添加了名为datarow的class，并设置了一个唯一的id，用于后续删除该行
+                                        "<tr class='datarow' id=tr" + s.srollno + ">"
+                                        + "<td>" + s.srollno + "</td>"      //读取当前学生的srollno属性（Student类中的属性）
+                                        + "<td>" + s.sname + "</td>"
+                                        + "<td>" + s.sgender + "</td>"
+                                        + "<td>" + s.spassword + "</td>"
+                                        + "<td>" + s.sbatch + "</td>"
+                                        + "<td><a href=\"javascript:deleteStudent('" + s.srollno + "');\">删除</a></td>"
+                                        + "</tr>");
+                                        //最后一列输出了一个超链接，点击该超链接调用deleteStudent()函数，传入学号删除当前学生
+                                
+                            });
+                        },
+                        error: function () {
+                            alert("出现错误!");
+                        }
+                    });
+                });
+            });
+        </script>
+    </head>
+    <body>
+
+        <div class="container">
+            <br><br>
+
+            <h1 class="text-center text-primary">查询班级学生列表</h1>
+            <hr>
+            <br>
+
+            <p>在该页面上发送一个请求给Servlet5，发送一个班级名称作为请求参数，从服务器获取该班级的所有学生的数据</p>
+            <p>此外，在该页面上使用ajax发送一个请求，发送一个学号，从服务器删除指定的学生，并从前端页面中的table中删除显示的该行</p>
+            <p>此外，点击“添加新学生”超链接可以跳转到一个页面添加一个新学生到数据库中</p>
+            <br>
+            <br>
+            
+            <form class="form-inline text-center">
+
+                <label for="batchName">班&nbsp;级： </label>
+                <select id="batchName" name="batchName" class="form-control">
+                    <option value="17软件J03">17软件J03</option>
+                    <option value="17软件J04">17软件J04</option>
+                    <option value="17软件J06">17软件J06</option>
+                </select>
+                &nbsp;
+                <button id="btn_search" type="button" class="btn btn-sm btn-primary">查询</button>
+            </form>
+
+            <br>
+            <h3 class="text-center text-success"><span id="batch"></span>学生列表</h3>
+
+            <br>
+            <table id="studentTable" class="table table-hover table-striped text-center">
+                <tr class="title">
+                    <td class="bg-success" colspan="6">
+                        <a href="ajax6_发送ajax请求添加一个新学生到数据库.html">+添加新学生</a>
+                    </td>
+                </tr>
+                <tr class="title">
+                    <!--th用于显示列标题-->
+                    <th>学号</th>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>密码</th>
+                    <th>班级</th>
+                    <th>操作</th>
+                </tr>
+            </table>
+
+        </div>
+    </body>
+</html>

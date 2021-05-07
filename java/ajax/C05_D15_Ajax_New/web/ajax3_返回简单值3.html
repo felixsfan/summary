@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>使用ajax返回简单值3</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/style.css"/>
+        <!--编写自己的js代码前，先引入jQuery文件--> 
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <script>
+
+            $(document).ready(function () {
+
+                //处理id为btn_cal的按钮的点击事件
+                $("#btn_cal").click(function () {
+
+                    //调用jQuery提供的ajax函数发送ajax请求给servlet3这个Servlet，返回的数据设置为id为resultContainer的元素的内容
+                    $.ajax({
+                        url: 'servlet3', //请求发送给url为servlet3的Servlet
+                        type: 'GET', //请求发送方式可以用GET或POST等
+                        data: $("#form1").serialize(), //将id为form1的整个表单的数据提交给服务器，前提是各个输入元素设置了name属性，用于在服务器端获取这些参数的值
+                        success: function (data) { //success属性指定请求成功要调用的函数，data表示服务器返回的数据，data这个名称可以随便修改
+                            $("#resultContainer").html(data); //修改id为resultContainer元素的内容为服务器返回的数据
+                        },
+                        error: function () { //error属性指定如果请求失败，要调用的函数
+                            alert("出现错误!");
+                        }
+                    });
+                });
+            });
+
+        </script>
+    </head>
+    <body>
+
+        <div class="container">
+
+
+            <h1 class="text-center text-danger">使用ajax返回简单值3</h1>
+            <hr>
+            <br>
+
+            <p>在该页面上发送一个请求给Servlet3，发送整个表单中所有参数，从服务器获取计算结果显示在某个html元素中</p>
+            <p>输入两个数字,计算两个数字的和</p>
+            <br>
+
+            <form class="form-inline" id="form1">
+                数字1:  <input type="text" id="num1" name="num1" class="form-control" value="1000">
+                <br><br>
+                数字2:  <input type="text" id="num2" name="num2" class="form-control" value="2000">
+                <br><br>
+                <button id="btn_cal" type="button" class="btn btn-sm btn-success">计算两数的和</button>
+            </form>
+
+            <br>
+
+            <div style="color: brown; font-size: 18px;">
+                计算结果: <span id="resultContainer">这里显示计算结果</span>
+            </div>
+
+        </div>
+    </body>
+</html>

@@ -40,16 +40,15 @@ print( "你好，世界" )
 
 ## 4.安装目录介绍
 
-![](C:\Users\felixsfan\Desktop\python学习\images\20181214080209657.png)
+![](C:\Users\felixsfan\Desktop\办公机备份\学习\python学习\images\20181214080209657.png)
 
 - DLLs： Python 自己使用的动态库
 - Doc： 自带的 Python 使用说明文档（如果上面安装时不选择，应该会没有，这个没具体试过）
 - include： 包含共享目录
 - Lib： 库文件，放自定义模块和包
 - libs： 编译生成的Python 自己使用的静态库
-- Scripts： 各种包/模块对应的可执行程序。安装时如果选择了
+- Scripts： 各种包/模块对应的可执行程序。安装时如果选择了pip。那么pip的可执行程序就在此！
 
-  pip。那么pip的可执行程序就在此！
 - tcl： 桌面编程包
 
 ### 4.1 动态库和静态库
@@ -315,9 +314,9 @@ two(a=1,b=2,c=3,d=4,e=5,f=6)
 
 **Python 使用 LEGB 的顺序来查找一个符号对应的对象**
 
-- G全局变量：在模块内、在所有函数的外面、在class内方法外
-- E(Enclosing)：闭包函数外的函数中(嵌套作用域)
-- L局部变量：在函数内、在class的方法内
+- L(局部变量)：在函数内、在class的方法内
+- E(Enclosing)：闭包函数外的函数中(嵌套作用域)、在class内方法外
+- G(全局变量)：在模块内、在所有函数和类的外面
 - B(Built-in)：内置作用域(内置函数所在模块的范围)
 
 Python中的作用域遵循LEGB原则：查找变量，先在L作用域查找，找不到便会去E作用域查找，再找不到去G作用域查找，再者去B作用域查找。
@@ -341,6 +340,19 @@ def sum( arg1, arg2 ):
 #调用sum函数
 sum( 10, 20 )
 print "函数外是全局变量 : ", total
+```
+
+```python
+a = 1  # 这个是全局变量 全局这个.py 任意一个函数或者方法都可以使用
+
+def test1():
+    a = 2  # 这个是局部变量 在这个函数可以使用
+    
+class clazz1():
+    a = 3  # 这个类变量 在当前类可以使用
+    def test2(self):
+        a = 4  # 这个是局部变量 在这个方法可以使用
+        self.b = 5  # 这个是实例变量 属性b 在当前类共享
 ```
 
 ### 9.3 Python中的包
@@ -574,8 +586,6 @@ Process finished with exit code 0
 
 ```
 
-
-
 ### 10.4 python的局部变量，全局变量，类变量，实例变量
 
 ```python
@@ -614,7 +624,8 @@ bar.class_var, bar.i_var
 MyClass.class_var
 ## 1
 
-##所有MyClass的对象都能够访问到class_var，同时class_var也##能被MyClass直接访问到
+##所有MyClass的对象都能够访问到class_var，
+##同时class_var也能被MyClass直接访问到self.class_var或类名.calss_var
 ##这个类变量有点像Java或者C++里面的静态成员，但是又不一样
 ```
 

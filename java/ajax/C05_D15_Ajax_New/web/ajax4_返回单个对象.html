@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>使用ajax返回单个对象</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/style.css"/>
+        <!--编写自己的js代码前，先引入jQuery文件--> 
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <script>
+
+            $(document).ready(function () {
+
+                //处理id为btn_queryOne的按钮的点击事件
+                $("#btn_queryOne").click(function () {
+
+                    //调用jQuery提供的ajax函数发送ajax请求给servlet4这个Servlet，
+                    //返回的数据设置为对应span的内容
+                    $.ajax({
+                        url: 'servlet4', //请求发送给url为servlet4的Servlet
+                        type: 'GET', //请求发送方式可以用GET或POST等
+                        data: {srollno: $("#srollno").val()}, //提交一个请求参数srollno，参数值为id为srollno的元素的value
+                        success: function (stu) { //success属性指定请求成功要调用的函数，stu表示服务器返回的数据，这次是一个学生对象，stu这个名称可以随便修改
+                            $("#span_srollno").html(stu.srollno); //将id为span_srollno的元素的内容设置为学生对象的srollno(Student类）属性的值
+                            $("#span_sname").html(stu.sname);
+                            $("#span_sgender").html(stu.sgender);
+                            $("#span_spwd").html(stu.spassword);
+                            $("#span_sbatch").html(stu.sbatch);
+                        },
+                        error: function () { //error属性指定如果请求失败，要调用的函数
+                            alert("出现错误!");
+                        }
+                    });
+                });
+            });
+
+        </script>
+    </head>
+    <body>
+
+        <div class="container">
+
+            <h1 class="text-center text-danger">使用ajax返回单个对象</h1>
+            <hr>
+            <br>
+            <p>在该页面上发送一个请求给Servlet4，发送一个学号作为请求参数，从服务器获取该学生的所有信息</p>
+            <p>输入一个学号,查询单个学生的信息</p>
+            <br>
+
+            <form class="form-inline" id="form1">
+                学号:  <input type="text" id="srollno" class="form-control" value="2017204444"> &nbsp;
+                <button id="btn_queryOne" type="button" class="btn btn-sm btn-success">查询</button>
+            </form>
+
+            <br><br>
+
+            <div style="color: white; background-color: darkcyan; width: 300px; height: 220px;padding: 20px;">
+                <h4 class="text-center">学生信息</h4>
+                <hr>
+                学号: <span id="span_srollno"></span><br>
+                姓名: <span id="span_sname"></span><br>
+                性别: <span id="span_sgender"></span><br>
+                密码: <span id="span_spwd"></span><br>
+                班级: <span id="span_sbatch"></span><br>
+            </div>
+
+        </div>
+    </body>
+</html>

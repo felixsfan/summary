@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>回顾jQuery</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <style>
+            .content{
+                width: 60%;
+                height: 90px;
+                margin: 10px auto;
+                line-height: 90px;
+            }
+
+            .bbb{}
+        </style>
+        <script>
+
+            $(document).ready(function () {
+
+                $("#btn1").click(function () {
+                    $(".content").slideUp(3000);
+                    $(".bbb").slideUp(3000);
+                });
+
+                $("#btn2").click(function () {
+                    $(".content").slideDown(3000);
+                    $(".bbb").slideDown(3000);
+                });
+
+                $("#btn3").click(function () {
+                    $(".content").html("<a href='#'>点击我!</a>");
+                });
+
+                $("#btn4").click(function () {
+                    var div = $(".content");
+                    div.animate({height: '200px', opacity: '0.4'}, "slow");
+                    div.animate({width: '200px', opacity: '0.8'}, "slow");
+                    div.animate({height: '100px', opacity: '0.4'}, "slow");
+                    div.animate({width: '100px', opacity: '0.8'}, "slow")
+                });
+
+            });
+
+        </script>
+    </head>
+    <body>
+
+        <div class="container text-center">
+
+            <br>
+            <h1 class="text-primary">回顾jQuery</h1>
+            <hr>
+
+            <button type="button" id="btn1" class="btn btn-sm btn-danger">消失</button>
+            &nbsp;
+            <button type="button" id="btn2" class="btn btn-sm btn-success">出现</button>
+            &nbsp;
+            <button type="button" id="btn3" class="btn btn-sm btn-warning">替换内容</button>
+            &nbsp;
+            <button type="button" id="btn4" class="btn btn-sm btn-info">添加动画效果</button>
+            <br><br>
+
+            <div class="content bg-danger">这是div1</div>
+            <div class="content bg-info">这是div2</div>
+            <div class="content bg-warning">这是div3</div>
+            <div class="content bg-success">这是div4</div>
+            <div class="content bg-primary">这是div5</div>
+
+            <br>
+
+            <button type="button" class="bbb btn btn-sm btn-primary">按钮1</button>
+            <button type="button" class="bbb btn btn-sm btn-success">按钮2</button>
+            <button type="button" class="bbb btn btn-sm btn-info">按钮3</button>
+            <button type="button" class="bbb btn btn-sm btn-warning">按钮4</button>
+            <button type="button" class="bbb btn btn-sm btn-danger">按钮5</button>
+            <button type="button" class="bbb btn btn-sm btn-primary">按钮6</button>
+            <button type="button" class="bbb btn btn-sm btn-success">按钮7</button>
+            <button type="button" class="bbb btn btn-sm btn-info">按钮8</button>
+            <button type="button" class="bbb btn btn-sm btn-warning">按钮9</button>
+            <button type="button" class="bbb btn btn-sm btn-danger">按钮10</button>
+
+        </div>
+
+        <br>
+        <br>
+        <br>
+
+    </body>
+</html>

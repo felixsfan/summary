@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>使用ajax返回简单值</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/style.css"/>
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <!--编写自己的js代码前，先引入jQuery文件--> 
+        <script>
+            
+            $(document).ready(function(){
+                
+                //处理id为btn1的按钮的点击事件
+                $("#btn1").click(function(){
+                    
+                    //如果点击该按钮，调用jQuery提供的ajax函数发送ajax请求，刷新id为resultSpan的元素的值
+                    $.ajax({
+                        url:'servlet1',  //url指定发送请求给谁，指定其url，这里发送请求给servlet1这个Servlet
+                        type: 'GET',     //type指定发送请求的方式是get还是post
+                        success:function(data){   //success属性指定请求成功要调用的函数，data表示服务器返回的数据，data这个名称可以随便修改
+                            $("#resultSpan").html(data); //修改id为resultSpan的元素的内容为服务器返回的内容，是一个随机整数
+                        },
+                        error:function(){ //error属性指定如果请求失败，要调用的函数
+                            alert("出现错误！");
+                        }
+                    });
+                });
+            });
+            
+        </script>
+    </head>
+    <body>
+
+        <div class="container">
+
+            <h1 class="text-center text-danger">使用ajax返回简单值1</h1>
+            <hr>
+            <br>
+            
+            <p>在该页面上发送一个请求给Servlet1，不发送任何请求参数，从服务器获取一个随机整数显示在页面上</p>
+            <br>
+            
+            <button id="btn1" class="btn btn-sm btn-primary">刷新随机数字</button>
+            
+            &nbsp;
+            
+            随机数字: <span id="resultSpan">这里显示生成的随机数字</span>
+            
+            <br><br>
+            
+        </div>
+    </body>
+</html>
