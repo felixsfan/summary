@@ -381,7 +381,7 @@ def runoob(request):
 
 ## 3.2 响应对象：HttpResponse 对象
 
-响应对象主要有三种形式：HttpResponse()、render()、redirect()。
+响应对象主要有三种形式：HttpResponse()、JsonResponse对象、render()、redirect()。
 
 **HttpResponse():** 返回文本，参数为字符串，字符串中写文本内容。如果参数为字符串里含有 html 标签，也可以渲染。
 
@@ -389,6 +389,23 @@ def runoob(request):
 def runoob(request):
     # return HttpResponse("菜鸟教程")
     return HttpResponse("<a href='https://www.runoob.com/'>菜鸟教程</a>")
+```
+
+**JsonResponse（）：**是HttpResponse的子类。当我在前端中发起ajax post请求时，需要返回json格式的数据。
+
+JsonResponse有两个功能：
+
+> (1)将数据转换为json字符串，再返回给客户端
+>
+> (2)自动设置响应头Content-Type为application/json
+
+```python
+def hello(request):
+    data = {
+            'name': '张三',
+            'age': 100,
+        }
+    return JsonResponse(data)
 ```
 
 **render():** 返回文本，第一个参数为 request，第二个参数为字符串（页面名称），第三个参数为字典（可选参数，向页面传递的参数：键为页面参数名，值为views参数名）。
@@ -973,6 +990,14 @@ def hello(request):
 18
 ```
 
+## 5.7 json对象、json字符串
+
+JSON 格式（JavaScript Object Notation 的缩写）是一种用于数据交换的文本格式
+
+**json对象**在编程语言中就是能被json序列化的对象，在js中`JSON`对象是 JavaScript 的原生对象，用来处理 JSON 格式数据。它有两个静态方法：`JSON.stringify()`和`JSON.parse()`。
+
+**json字符串**是一个用单引号或者双引号引起来的字符串，因为**字符串的格式符合json的格式，所以叫做json字符串**
+
 # 6. API接口开发
 
 ## 6.1 API接口与web开发区别
@@ -980,7 +1005,7 @@ def hello(request):
 **返回值的区别**：
 
 - API接口需要返回序列化后的数据（大部分为字典、字符串、数组、可序列化实体类对象等序列化后的json字符串数据）
-- web开发需要把返回的数据（字典、数组、字符串、实体类对象）和模板通过模板编译器处理后返回给客户端浏览器。
+- web开发需要把返回的数据（字典、数组、字符串、实体类对象）和模板通过模板编译器序列化和处理后返回给客户端浏览器。
 
 **序列化上的区别**：
 
