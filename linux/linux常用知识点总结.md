@@ -3522,6 +3522,21 @@ sshd:ALL #拒绝全部IP
 
 # 17. 防火墙
 
+常用端口
+
+```shell
+http 80
+https 443
+ftp 21
+ssh 22
+远程桌面 3389
+mysql 3306
+redis 4389
+memcahce 11211
+smtp 25
+pop3 110
+```
+
 查看防火墙状态
 
 ```shell
@@ -3532,6 +3547,12 @@ firewall-cmd --state
 
 ```shell
 systemctl stop firewalld.service
+```
+
+重启防火墙
+
+```shell
+firewall-cmd --reload
 ```
 
 禁止firewall开机启动
@@ -3550,7 +3571,7 @@ systemctl start firewalld.service
 
 ```shell
 firewall-cmd --zone=public --add-port=8080/tcp --permanent；开启8080端口
-
+firewall-cmd --zone=public --add-port=80/tcp --permanent;开启80端口
  
 
 　　--zone=public：表示作用域为公共的；
@@ -3558,6 +3579,12 @@ firewall-cmd --zone=public --add-port=8080/tcp --permanent；开启8080端口
 　　--add-port=8080/tcp：添加tcp协议的端口8080；
 
 　　--permanent：永久生效，如果没有此参数，则只能维持当前服务生命周期内，重新启动后失效
+```
+
+查看所有开启的端口
+
+```shell
+firewall-cmd --list-ports
 ```
 
 查看端口号占用

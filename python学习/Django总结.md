@@ -1027,7 +1027,7 @@ https://segmentfault.com/a/1190000015702416
 
 通常服务器程序分为web服务器和应用程序服务器。web服务器是用于处理HTML文件，让客户可以通过浏览器进行访问，主流的web服务器有Apache、IIS、Nginx、lighthttpd等。应用服务器处理业务逻辑，比如使用Python的Django、flask写的程序。通常来自客户端浏览器的请求被web服务器截获，如果是静态请求，则如Nginx会自己做处理，如果是动态请求，则会抛给后端应用服务器来处理。于是如何在web服务器与应用服务器之间进行通信成了主要问题，这就引出了以下三种处理的接口：CGI、FastCGI、WSGI。
 
-## Web服务器和应用服务器
+## 7.1 Web服务器和应用服务器
 
 **Web服务器(Web [Server](http://detail.zol.com.cn/server/))**
 
@@ -1039,7 +1039,7 @@ https://segmentfault.com/a/1190000015702416
 
 重点：现在大多数应用程序服务器也包含了Web服务器，这就意味着可以把Web服务器当作是应用程序服务器的一个子集(subset)。
 
-## CGI、WSGI、uWSGI
+## 7.2 CGI、WSGI、uWSGI
 
 ### 简介
 
@@ -1070,7 +1070,7 @@ WSGI分为两个部分：一为"服务器"或"网关"，另一为"应用程序"�
 
 
 
-## Servlet与CGI的区别
+## 7.3 Servlet与CGI的区别
 
 概括来讲，Servlet可以完成和CGI相同的功能。用Java语言来写CGI，就是servlet技术。
 
@@ -1079,3 +1079,7 @@ WSGI分为两个部分：一为"服务器"或"网关"，另一为"应用程序"�
 　　在传统的[CGI](http://baike.baidu.com/view/32614.htm)中，每个请求都要启动一个新的进程，如果CGI程序本身的执行时间较短，启动进程所需要的开销很可能反而超过实际执行时间。而在Servlet中，每个请求由一个轻量级的Java线程处理(而不是重量级的操作系统进程)。
 
 　　在传统CGI中，如果有N个并发的对同一CGI程序的请求，则该CGI程序的代码在内存中重复装载了N次；而对于Servlet，处理请求的是N个线程，只需要一份Servlet类代码。在性能优化方面，Servlet也比CGI有着更多的选择。
+
+# 8.各语言web框架区别
+
+tomcat负责检测和建立tcp连接，接收请求转发到应用程序，springboot和django内部嵌套了小型web服务器来处理连接和转发请求，只需要后台noup运行程序就行，django生存环境需要uwsgi web服务器+ngnix来处理连接，转发请求，springboot也可以配置单独的tomcat。golang的net包提供了可移植的网络I/O接口，包括TCP/IP、UDP、域名解析、http和Unix域socket等接口，但没有像tomcat和web框架对请求进行那么强大的封装，相对来说灵活，但是需要自己实现。
