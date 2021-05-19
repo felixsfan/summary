@@ -300,6 +300,8 @@ Django在运行时会自动将这些文件映射到STATIC_URL所给定的值下�
 
 如果css文件中也使用了静态文件如css背景，则按照相对路径使用即可，因为浏览器解析css是会自动按照相对路径寻找到正确的URL。
 
+## 2.4 跳转页面
+
 > **相对路径**：相对路径是相对于调用页面的文件的路径而不是页面文件本身的路径
 
 # 3. 视图
@@ -403,7 +405,7 @@ JsonResponse有两个功能：
 def hello(request):
     data = {
             'name': '张三',
-            'age': 100,
+            'age': 100
         }
     return JsonResponse(data)
 ```
@@ -992,9 +994,19 @@ def hello(request):
 
 ## 5.7 json对象、json字符串
 
-JSON 格式（JavaScript Object Notation 的缩写）是一种用于数据交换的文本格式
+### 格式
 
-**json对象**在编程语言中就是能被json序列化的对象，在js中`JSON`对象是 JavaScript 的原生对象，用来处理 JSON 格式数据。它有两个静态方法：`JSON.stringify()`和`JSON.parse()`。
+- JSON 格式（JavaScript Object Notation 的缩写）是一种用于数据交换的文本格式。
+- JSON 对象被花括号 {} 包围。
+- JSON 对象以键/值对书写。键必须是字符串，值必须是有效的 JSON 数据类型（字符串、数字、对象、数组、布尔或 null）。
+- 键和值由冒号分隔。
+- 每个键/值对由逗号分隔。
+
+### 区别
+
+**json对象**在编程语言中就是能被json序列化的对象。比如python的字符串、数字、对象、数组、布尔或 null（不一定符合json格式，只要可以被json.dumps序列化成json字符串都是json对象）
+
+在js中`JSON`对象是 JavaScript 的原生对象，用来处理 JSON 格式数据。它有两个静态方法：`JSON.stringify()`和`JSON.parse()`。通过使用点号（.）或方括号（[]）来访问对象值。
 
 **json字符串**是一个用单引号或者双引号引起来的字符串，因为**字符串的格式符合json的格式，所以叫做json字符串**
 
@@ -1035,7 +1047,7 @@ https://segmentfault.com/a/1190000015702416
 
 **应用程序服务器(The Application Server)**
 
-　　根据我们的定义，作为应用程序服务器，它通过各种协议，可以包括HTTP，把商业逻辑暴露给(expose)客户端应用程序。Web服务器主要是处理向浏览器发送HTML以供浏览，而应用程序服务器提供访问商业逻辑的途径以供客户端应用程序使用。应用程序使用此商业逻辑就象你调用对象的一个方法(或过程语言中的一个函数)一样。**应用服务器：Weblogic、Tomcat、Jboss** 
+　　根据我们的定义，作为应用程序服务器，**它通过各种协议，可以包括HTTP，把商业逻辑暴露给(expose)客户端应用程序**。Web服务器主要是处理向浏览器发送HTML以供浏览，而应用程序服务器提供访问商业逻辑的途径以供客户端应用程序使用。应用程序使用此商业逻辑就像你调用对象的一个方法(或过程语言中的一个函数)一样。**应用服务器：Weblogic、Tomcat、Jboss** 
 
 重点：现在大多数应用程序服务器也包含了Web服务器，这就意味着可以把Web服务器当作是应用程序服务器的一个子集(subset)。
 
