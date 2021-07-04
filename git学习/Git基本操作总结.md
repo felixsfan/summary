@@ -284,6 +284,24 @@ git merge origin/master
 
 git pull：相当于是从远程获取最新版本并merge到本地
 
+格式：
+
+```sh
+git pull <远程主机名> <远程分支名>:<本地分支名>
+```
+
+将远程主机 origin 的 master 分支拉取过来，与本地的 brantest 分支合并。
+
+```sh
+git pull origin master:brantest
+```
+
+如果远程分支是与当前分支合并，则冒号后面的部分可以省略。
+
+```shell
+git pull origin master
+```
+
 上述命令其实相当于git fetch 和 git merge。在实际使用中，git fetch更安全一些，因为在merge前，我们可以查看更新情况，然后再决定是否合并
 
 例如：
@@ -620,3 +638,7 @@ A---B---D---E---C‘---F‘---   test, master
 对比可看出：git merge多出了一个新的节点G，会将远端master的代码和test本地的代码在这个G节点合并，之前的提交会分开去显示。
 
 git --rebase会将两个分支融合成一个线性的提交，不会形成新的节点。
+
+#### origin / master与origin master的区别
+
+`origin master`是远程仓库分支，`origin/master`是名为“origin” 的远程分支的*本地副本*，名为“master”

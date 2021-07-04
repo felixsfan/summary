@@ -2383,14 +2383,13 @@ tar -xf FileName.tar：这条命令是解出FileName.tar包中所有文件，-x�
 - 由于centos是基于redhat的，所以centos支持rpm包，但Ubuntu不支持
 - centos比ubuntu稳定
 
-# 10.Linux下载软件
+# 10.Linux（centos）下载软件
 
 以centos为例，安装程序的方式：
 
-- 通用二进制格式：直接解压压缩文件，就可以使用。但一定要注意安装平台。
+- 源代码编译-------通用二进制格式：直接解压压缩文件，make编译后就可以使用。但一定要注意安装平台。
 - 软件包管理器：如RPM。
 - 软件包管理器的前端工具：如YUM。
-- 源代码编译
 
 软件包的组成部分：
 

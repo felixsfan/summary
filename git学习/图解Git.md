@@ -186,7 +186,3 @@ cherry-pick命令"复制"一个提交节点并在当前分支做一次完全一�
 
 如果用detached HEAD提交，那么最后一次提交会被the reflog for HEAD引用。但是过一段时间就失效，最终被回收，与`git commit --amend`或者`git rebase`很像。
 
-## 本地仓库与远程仓库
-
-见尚硅谷教程
-
