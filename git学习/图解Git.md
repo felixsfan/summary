@@ -1,15 +1,14 @@
 ## 综述
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\git学习\image\思维导图.bmp)
+![](/Users/fanqingwei/Desktop/学习/git学习\image\思维导图.bmp)
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\git学习\image\git.jpg)
+![](/Users/fanqingwei/Desktop/学习/git学习\image\git.jpg)
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\git学习\image\git.png)
+![](/Users/fanqingwei/Desktop/学习/git学习\image\git.png)
 
 ## 基本用法
 
 >  https://www.runoob.com/w3cnote/git-graphical.html 
->
 
 ![img](https://www.runoob.com/wp-content/uploads/2019/05/1557394755-3986-basic-usage.svg-.png)
 

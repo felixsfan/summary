@@ -1,0 +1,55 @@
+.ch-icon-close:before {
+    content: "保存";
+}
+
+.cherry-toolbar .cherry-toolbar-button.cherry-toolbar-close {
+    height: 28px;
+    line-height: 25px;
+    position: fixed;
+    right: 20px;
+    top: 5px;
+    color: #fff;
+    background-color: #2196f3;
+    border-radius: 5px;
+}
+
+.cherry-toolbar .cherry-toolbar-button.cherry-toolbar-close:hover {
+    background-color: #0079de;
+}
+
+.cherry-previewer {
+    font-size: 14px;
+}
+
+.cherry h1 {
+    font-size: 24px;
+}
+
+.cherry h2 {
+    font-size: 20px;
+}
+
+.cherry h3 {
+    font-size: 16px;
+}
+
+.cherry h4 {
+    font-size: 14px;
+}
+
+.cherry h5 {
+    font-size: 14px;
+}
+
+.cherry h6 {
+    font-size: 12px;
+}
+
+.cherry p {
+    font-size: 14px;
+    margin: 0 0 10px;
+}
+
+.cherry img {
+    max-width: 100%;
+}

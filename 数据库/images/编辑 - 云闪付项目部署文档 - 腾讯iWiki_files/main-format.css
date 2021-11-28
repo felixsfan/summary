@@ -1,0 +1,330 @@
+* {
+  margin: 0;
+}
+#modal-outer .iwiki-safety-model {
+  display: block;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  justify-content: center;
+}
+#modal-outer .iwiki-safety-model .modal-content {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  max-width: 840px;
+  min-height: 412px;
+  background-color: #ffffff;
+  border-radius: 4px;
+  flex-direction: column;
+}
+#modal-outer .iwiki-safety-model .modal-content .modal-header {
+  display: box;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -moz-box-pack: space-between;
+  box-pack: space-between;
+}
+#modal-outer .iwiki-safety-model .modal-content .modal-header .modal-title {
+  padding: 15px 30px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+  color: #333;
+}
+#modal-outer .iwiki-safety-model .modal-content .modal-body {
+  padding: 30px;
+  flex: 1;
+  border-top: 2px solid #ebecf0;
+}
+#modal-outer .iwiki-safety-model .modal-content .modal-body .text-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#modal-outer .iwiki-safety-model .modal-content .modal-body .text-container .text {
+  line-height: 24px;
+  font-size: 14px;
+  color: #414441;
+  padding-bottom: 24px;
+}
+#modal-outer .iwiki-safety-model .modal-content .modal-body .text-container .text a {
+  color: #227eff;
+  text-decoration: none;
+}
+#modal-outer .iwiki-safety-model .modal-content .modal-body .text-container .text .warn {
+  color: red;
+}
+#modal-outer .iwiki-safety-model .modal-content .modal-footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  line-height: 50px;
+  padding: 0 30px;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  height: 52px;
+  width: 100%;
+  border-top: 2px solid #ebecf0;
+}
+#modal-outer .iwiki-safety-model .modal-content .modal-footer input[type='checkbox'] {
+  width: 12px;
+  height: 12px;
+  background-color: #fff;
+  border: 1px solid #0052cc;
+  border-radius: 2px;
+  outline: none;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 12px;
+  position: relative;
+  top: -2px;
+}
+#modal-outer .iwiki-safety-model .modal-content .modal-footer input[type='checkbox']::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #fff;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #0052cc;
+}
+#modal-outer .iwiki-safety-model .modal-content .modal-footer input[type='checkbox']:checked::before {
+  content: "\2713";
+  background-color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border: 1px solid #0052cc;
+  color: #fff;
+  background: #0052cc;
+  font-size: 12px;
+  transition: transform 1s ease-in 1s;
+}
+#modal-outer .iwiki-safety-model .modal-content .modal-footer .custom-control-label {
+  font-size: 16px;
+  color: #0052cc;
+  padding-left: 4px;
+}
+#modal-outer .iwiki-safety-model .modal-content .modal-footer .btn-secondary {
+  display: inline-block;
+  padding: 0 15px;
+  height: 32px;
+  text-align: center;
+  line-height: 32px;
+  border-radius: 3px;
+  background-color: #0052cc;
+  color: #fff;
+  border: none;
+  margin-right: 9px;
+  font-size: 14px;
+  cursor: pointer;
+}
+#modal-outer .iwiki-safety-model .modal-content .modal-footer .btn-secondary:hover {
+  background-color: #0065ff;
+  color: #fff;
+}
+#modal-outer .iwiki-safety-model .modal-content .modal-footer .btn-disabled {
+  cursor: not-allowed;
+}
+#footer .footer-body {
+  background: none !important;
+}
+#header {
+  display: none;
+}
+#header .aui-header {
+  /* 新增按钮样式 */
+}
+#header .aui-header #iwiki-isearcu-button,
+#header .aui-header #iwiki-rencently-button {
+  height: 16px;
+  padding: 12px 10px;
+}
+#header .aui-header #rencently-content {
+  position: fixed;
+  width: 400px;
+  height: 340px;
+  top: 40px;
+  right: 20px;
+  z-index: 3000;
+  display: none;
+  margin-top: 3px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+#header .aui-header #rencently-content .rencently-page-title {
+  display: none;
+}
+#header .aui-header #rencently-content > div {
+  float: left;
+  width: 50%;
+  height: 100%;
+  background-color: #fff;
+  box-sizing: border-box;
+  padding-top: 5px;
+}
+#header .aui-header #rencently-content ul {
+  padding-left: 0px;
+  margin-top: 5px;
+}
+#header .aui-header #rencently-content strong {
+  color: #6b778c;
+  padding-left: 7px;
+}
+#header .aui-header #rencently-content li {
+  list-style: none;
+}
+#header .aui-header #rencently-content li a {
+  color: #172B4D;
+  padding: 7px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+#header .aui-header #rencently-content li a:hover {
+  background-color: #ebecf0;
+}
+#header .aui-header #rencently-content li img {
+  padding-right: 7px;
+}
+#header .aui-header #rencently-content #more-rencently-page {
+  display: none;
+}
+#header .aui-header #rencently-content #more-rencently-page a {
+  color: #0052CC;
+  padding: 10px 7px;
+}
+#header .aui-header #rencently-content #more-rencently-page a:hover {
+  background-color: #fff;
+  color: #0084ff;
+  text-decoration: underline;
+}
+#header .aui-header .dashboard-active {
+  background-color: rgba(9, 30, 66, 0.48);
+  border-color: rgba(9, 30, 66, 0.48);
+  color: #DEEBFF;
+}
+#main-header {
+  background-color: #fff;
+}
+/* 隐藏编辑权限搜索按钮 */
+#grouppicker-popup-link,
+#userpicker-popup-link {
+  display: none;
+}
+/* 即时通讯样式 */
+#userparam-im {
+  color: #0079de;
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 4px;
+  border: 1px solid #0079de;
+  margin-top: 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+#userparam-im:hover {
+  color: #fff;
+  border: 1px solid #fff;
+  background-color: #0079de;
+}
+.wxMessageCheck {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+.wxMessageCheck input {
+  margin-right: 5px;
+}
+.wxMessageCheck #wxMessageEnglish {
+  margin-left: 10px;
+}
+/* 个人信息提示 */
+a.userLogoLink,
+a.confluence-userlink {
+  position: relative;
+  display: inline-block;
+}
+/* 个人信息提示弹窗 */
+#content-hover-userinfo {
+  position: absolute;
+  z-index: 3100;
+  display: none;
+  box-sizing: border-box;
+  width: 316px;
+  height: 172px;
+  padding: 15px 0 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+  color: #333;
+  font-size: 12px;
+}
+#content-hover-userinfo .hover-userparam-home,
+#content-hover-userinfo .hover-userparam-im {
+  widows: 100px;
+  padding: 3px 10px;
+  border: 1px solid #4e89ff;
+  color: #4e89ff;
+  cursor: pointer;
+  border-radius: 2px;
+  display: flex;
+}
+#content-hover-userinfo .hover-userparam-home:hover,
+#content-hover-userinfo .hover-userparam-im:hover {
+  background-color: #4e89ff;
+  color: #fff;
+}
+#iwiki-create-space2 {
+  color: #344563;
+  background-color: #e3e4e7;
+  text-decoration: none;
+  padding: 5px 10px;
+  margin-right: 10px;
+}
+#iwiki-create-space2:hover {
+  background-color: #d6d9dd;
+}
+#permissions-dialog {
+  top: 50%;
+  margin-top: -110px;
+}
+#iwiki-user-water {
+  width: 100%;
+  position: absolute;
+  top: 30px;
+  bottom: 0;
+  left: -60px;
+  right: 0;
+  pointer-events: none;
+  -webkit-print-color-adjust: exact;
+  z-index: 11111;
+}
+.aui-blanket,
+.css-lua1xqz {
+  background: rgba(51, 51, 51, 0.95);
+}
+#action-remove-content-link,
+#action-move-page-dialog-link,
+#action-copy-page-link {
+  display: none;
+}

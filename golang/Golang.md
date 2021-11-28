@@ -11,7 +11,7 @@
 
 简单理解，编译器就是一个“翻译工具”，类似于将中文翻译成英文、将英文翻译成俄文。但是，翻译源代码是一个复杂的过程，大致包括词法分析、语法分析、语义分析、性能优化、生成可执行文件等五个步骤，期间涉及到复杂的算法和硬件架构。解释器与此类似，有兴趣的读者请参考《编译原理》一书，本文不再赘述。
 
-<img src="C:\Users\felixsfan\Desktop\办公机备份\学习\golang\images\编译型和解释型执行流程.png" style="zoom:50%;" />
+<img src="/Users/fanqingwei/Desktop/学习/golang\images\编译型和解释型执行流程.png" style="zoom:50%;" />
 
 ## 1.1 编译型语言
 
@@ -97,7 +97,7 @@
 
 - Python与Java编译的过程
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\golang\images\Java和python区别.png)
+![](/Users/fanqingwei/Desktop/学习/golang\images\Java和python区别.png)
 
 # 2.C/C++程序编译过程详解
 
@@ -105,7 +105,7 @@
 
 C语言的编译链接过程要把我们编写的一个c程序（源代码）转换成可以在硬件上运行的程序（可执行代码），需要进行编译和链接。编译就是把文本形式源代码翻译为机器语言形式的目标文件的过程。链接是把目标文件、操作系统的启动代码和用到的库文件进行组织，形成最终生成可执行代码的过程。过程图解如下：
 
-<img src="C:\Users\felixsfan\Desktop\办公机备份\学习\golang\images\C编译过程.png" style="zoom:50%;" />
+<img src="/Users/fanqingwei/Desktop/学习/golang\images\C编译过程.png" style="zoom:50%;" />
 
 从图上可以看到，整个代码的编译过程分为编译和链接两个过程，编译对应图中的大括号括起的部分，其余则为链接过程。
 
@@ -213,7 +213,7 @@ UNIX环境下主要有三种类型的目标文件：
 
 我们在linux使用的gcc编译器便是把以上的几个过程进行捆绑，使用户只使用一次命令就把编译工作完成，这的确方便了编译工作，但对于初学者了解编译过程就很不利了，下图便是gcc代理的编译过程：
 
-<img src="C:\Users\felixsfan\Desktop\办公机备份\学习\golang\images\GCC编译过程.png" style="zoom:50%;" />
+<img src="/Users/fanqingwei/Desktop/学习/golang\images\GCC编译过程.png" style="zoom:50%;" />
 
 从上图可以看到：
 
@@ -317,7 +317,7 @@ C语言编译的整个过程是非常复杂的，里面涉及到的编译器知�
 
 ### 3.2.1 环境配置
 
-<img src="C:\Users\felixsfan\Desktop\办公机备份\学习\golang\images\goland运行环境配置.png" style="zoom: 25%;" />
+<img src="/Users/fanqingwei/Desktop/学习/golang\images\goland运行环境配置.png" style="zoom: 25%;" />
 
 GOROOT: golang 的安装路径
 
@@ -328,7 +328,7 @@ GOPATH:
 
 ### 3.2.2 项目配置
 
-![]()<img src="C:\Users\felixsfan\Desktop\办公机备份\学习\golang\images\goland环境配置.png" alt="goland环境配置" style="zoom:50%;" />
+![]()<img src="/Users/fanqingwei/Desktop/学习/golang\images\goland环境配置.png" alt="goland环境配置" style="zoom:50%;" />
 
 上图中有以下几点需要注意：
 

@@ -134,7 +134,7 @@ IO指的是输入Input/输出Output，但是从汉语角度来说，出和入是
 
 ### 基础知识
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\后台高性能\image\NXVD}_~TRQ75PNYYVLVX}E5.png)
+![](/Users/fanqingwei/Desktop/学习/后台高性能\image\NXVD}_~TRQ75PNYYVLVX}E5.png)
 
 网卡收包从整体上是网线中的高低电平转换到网卡FIFO存储再拷贝到系统主内存（DDR3）的过程，其中涉及到网卡控制器，CPU，DMA，驱动程序，在OSI模型中属于物理层和链路层，如下图所示。
 
@@ -150,7 +150,7 @@ IO指的是输入Input/输出Output，但是从汉语角度来说，出和入是
 
 ![img](https://upload-images.jianshu.io/upload_images/11345047-1271870a0a9c3db2.png?imageMogr2/auto-orient/strip|imageView2/2/w/313/format/webp)
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\后台高性能\image\网络包发送过程.webp)
+![](/Users/fanqingwei/Desktop/学习/后台高性能\image\网络包发送过程.webp)
 
 ### 2.3.1 网卡收到数据包
 
@@ -220,9 +220,9 @@ NIC在接收到数据包之后，首先需要将数据同步到内核中，这�
 
 软中断会触发内核网络模块中的软中断处理函数，后续流程如下:
 
-<img src="C:\Users\felixsfan\Desktop\办公机备份\学习\后台高性能\image\网络协议1.png" style="zoom: 50%;" />
+<img src="/Users/fanqingwei/Desktop/学习/后台高性能\image\网络协议1.png" style="zoom: 50%;" />
 
-<img src="C:\Users\felixsfan\Desktop\办公机备份\学习\后台高性能\image\网络协议2.png" style="zoom:50%;" />
+<img src="/Users/fanqingwei/Desktop/学习/后台高性能\image\网络协议2.png" style="zoom:50%;" />
 
 内核中的ksoftirqd进程专门负责软中断的处理，当它收到软中断后，就会调用相应软中断所对应的处理函数，对于上面第六步中网卡驱动模块抛出的软中断，ksoftirqd会调用网络模块的net_rx_action函数
 
@@ -343,11 +343,11 @@ CPU会接着在自己的软中断上下文中处理自己input_pkt_queue里的�
 
 以tomcat为例，应用程序需要一个监听线程监听端口，来判断是否有请求到达，注册多个socket,**同时监听多个IO请求**，进而调用socket编程读取数据
 
-<img src="C:\Users\felixsfan\Desktop\办公机备份\学习\后台高性能\image\Tomcat NIO .webp" style="zoom:50%;" />
+<img src="/Users/fanqingwei/Desktop/学习/后台高性能\image\Tomcat NIO .webp" style="zoom:50%;" />
 
 socket是在应用层和传输层中间的抽象层，它把传输层（TCP/UDP）的复杂操作抽象成一些简单的接口，供应用层调用实现进程在网络中的通信。Socket起源于UNIX，在Unix一切皆文件的思想下，进程间通信就被冠名为文件描述符（file desciptor），Socket是一种“打开—读/写—关闭”模式的实现，服务器和客户端各自维护一个“文件”，在建立连接打开后，可以向文件写入内容供对方读取或者读取对方内容，通讯结束时关闭文件。
 
-<img src="C:\Users\felixsfan\Desktop\办公机备份\学习\后台高性能\image\网络架构1.png" style="zoom:50%;" />
+<img src="/Users/fanqingwei/Desktop/学习/后台高性能\image\网络架构1.png" style="zoom:50%;" />
 
 
 
@@ -481,7 +481,7 @@ https://blog.csdn.net/peelarmy/article/details/109316382
 
 参考《网络 IO 演变发展过程和模型介绍》文档
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\后台高性能\image\网络IO.jpg)
+![](/Users/fanqingwei/Desktop/学习/后台高性能\image\网络IO.jpg)
 
 ## 2.1 同步/异步
 
@@ -516,9 +516,9 @@ https://blog.csdn.net/peelarmy/article/details/109316382
 
 - 
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\后台高性能\image\同步异步.png)
+![](/Users/fanqingwei/Desktop/学习/后台高性能\image\同步异步.png)
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\后台高性能\image\IO复用.webp)
+![](/Users/fanqingwei/Desktop/学习/后台高性能\image\IO复用.webp)
 
 阻塞式I/O、非阻塞式I/O、I/O复用、信号驱动式I/O他们的第二阶段都相同，也就是都会阻塞到recvfrom调用上面就是图中“发起”的动作。异步式I/O两个阶段都要处理。
 
@@ -534,7 +534,7 @@ data = socket.read();
 
 如果数据没有就绪，就会一直阻塞在read方法。
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\后台高性能\image\同步阻塞.png)
+![](/Users/fanqingwei/Desktop/学习/后台高性能\image\同步阻塞.png)
 
 read请求也就是recv系统调用
 
@@ -558,7 +558,7 @@ while(true){
 
 但是对于非阻塞IO就有一个非常严重的问题，在while循环中需要不断地去询问内核数据是否就绪，这样会导致CPU占用率非常高，因此一般情况下很少使用while循环这种方式来读取数据。
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\后台高性能\image\非阻塞IO.png)
+![](/Users/fanqingwei/Desktop/学习/后台高性能\image\非阻塞IO.png)
 
 ### 2.3.3 I/O多路复用模型
 
@@ -616,7 +616,7 @@ select，poll，epoll都是IO多路复用的机制。I/O多路复用就通过一
 
 如果一个I/O流进来，我们就开启一个进程处理这个I/O流。那么假设现在有一百万个I/O流进来，那我们就需要开启一百万个进程一一对应处理这些I/O流（——这就是传统意义下的**多进程并发处理**）。思考一下，一百万个进程，你的CPU占有率会多高，这个实现方式及其的不合理。所以人们提出了I/O多路复用这个模型，**一个线程，通过记录I/O流的状态来同时管理多个I/O，可以提高服务器的吞吐能力**
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\后台高性能\image\11319096-1c5d700819116c61.webp)
+![](/Users/fanqingwei/Desktop/学习/后台高性能\image\11319096-1c5d700819116c61.webp)
 
 #### 2.3.3.5 实现方式
 
@@ -630,7 +630,7 @@ select，poll，epoll都是IO多路复用的机制。I/O多路复用就通过一
 
    IO多路复用模型是建立在内核提供的多路分离函数select基础之上的，使用select函数可以避免同步非阻塞IO模型中轮询等待的问题
 
-   ![](C:\Users\felixsfan\Desktop\办公机备份\学习\后台高性能\image\11319096-c3fd7c0bf3904dfa.webp)
+   ![](/Users/fanqingwei/Desktop/学习/后台高性能\image\11319096-c3fd7c0bf3904dfa.webp)
 
    我们来分析一下上面这张图
 
@@ -819,7 +819,7 @@ epoll是Linux目前大规模网络并发程序开发的首选模型。在绝大�
 
 Reactor模式(反应器模式)**事件驱动结构的一种实现**。是一种处理一个或多个客户端并发进行服务请求的。将服务端接收请求与事件处理分离，从而提高系统处理并发的能力，**Java的NIO的reactor模式是基于系统内核的多路复用技术实现的**
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\后台高性能\image\142333254136604.png)
+![](/Users/fanqingwei/Desktop/学习/后台高性能\image\142333254136604.png)
 
 ##### 2.3.6.1.2 反应堆模式的本质是什么
 
@@ -912,7 +912,7 @@ proactor 主要是通过对异步 IO 的封装的一种模型，它需要底层�
 
 #### 2.3.6.3 主流的中间件所采用的网络模型
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\后台高性能\image\主流的中间件所采用的网络模型.webp)
+![](/Users/fanqingwei/Desktop/学习/后台高性能\image\主流的中间件所采用的网络模型.webp)
 
 #### 2.3.6.4 主流网络框架
 
@@ -960,18 +960,18 @@ Java NIO（New IO），No Blocking IO **非阻塞IO**，是从Java1.4版本开�
 
 - 传统的IO是单向的
   - 也就是需要建立输入流和输出流两个管道，数据的流动只能是单向的
-  - ![](C:\Users\felixsfan\Desktop\办公机备份\学习\后台高性能\image\image-20200327143758859.png)
+  - ![](/Users/fanqingwei/Desktop/学习/后台高性能\image\image-20200327143758859.png)
 
 - NIO是双向的
   - 里面的缓存区是可以双向传输的
-  - ![image-20200327144423143](C:\Users\felixsfan\Desktop\办公机备份\学习\后台高性能\image\image-20200327144423143.png)
+  - ![image-20200327144423143](/Users/fanqingwei/Desktop/学习/后台高性能\image\image-20200327144423143.png)
   
 - NIO里面引入的通道的概念
   - 通道可以理解为我们生活中的铁路，它是用于源地址和目的地址连接的
   - 如果需要实际传输的话，那么需要依赖里面的缓冲区
   - 通道负责连接，缓冲区负责传输
   
-- ![](C:\Users\felixsfan\Desktop\办公机备份\学习\后台高性能\image\NIO.png)
+- ![](/Users/fanqingwei/Desktop/学习/后台高性能\image\NIO.png)
 
 ## 3.4 通道和缓冲区
 
@@ -1006,7 +1006,7 @@ Java NIO系统的核心在于：通道（Channel）、缓冲区（Buffer）和�
 
 ### 缓冲区中的核心属性
 
-![image-20200327150236836](C:\Users\felixsfan\Desktop\办公机备份\学习\后台高性能\image\image-20200327150236836.png)
+![image-20200327150236836](/Users/fanqingwei/Desktop/学习/后台高性能\image\image-20200327150236836.png)
 
 - capacity：容量，表示缓冲区中最大存储数据的容量，一旦申明不可改变。
 
@@ -1469,13 +1469,13 @@ public class ChannelCharsetDemo {
 
 **jdk的基于I/O多路复用技术的NIO实现。重点在于理解Selector复用器**
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\后台高性能\image\5350978-a76ed2df22db645f.webp)
+![](/Users/fanqingwei/Desktop/学习/后台高性能\image\5350978-a76ed2df22db645f.webp)
 
 ## 3.8 NIO的非阻塞式网络通信
 
 传统的阻塞式IO必须等待内容获取完毕后，才能够继续往下执行
 
-![image-20200327190553998](C:\Users\felixsfan\Desktop\办公机备份\学习\后台高性能\image\image-20200327190553998.png)
+![image-20200327190553998](/Users/fanqingwei/Desktop/学习/后台高性能\image\image-20200327190553998.png)
 
 在NIO中，引入了选择器的概念，它会把每个通道都注册到选择器中，选择器的作用就是监控通道上的IO状态，当某个通道上，某个IO请求已经准备就绪时，那么选择器才会将该客户端的通道分配到服务端的一个或多个线程上
 
@@ -2049,7 +2049,7 @@ public class PipeDemo {
 
 Reactor模式(反应器模式)**事件驱动结构的一种实现**。是一种处理一个或多个客户端并发进行服务请求的。将服务端接收请求与事件处理分离，从而提高系统处理并发的能力，**Java的NIO的reactor模式是基于系统内核的多路复用技术实现的**
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\后台高性能\image\142333254136604.png)
+![](/Users/fanqingwei/Desktop/学习/后台高性能\image\142333254136604.png)
 
 ### 4.2.1 反应堆模式的本质是什么
 

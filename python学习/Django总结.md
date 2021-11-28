@@ -14,7 +14,7 @@
 
   3. C全拼为Controller，用于接收请求，处理业务逻辑，与Model和View交互，返回结果。
 
-     <img src="C:\Users\felixsfan\Desktop\办公机备份\学习\python学习\images\MVC.png" style="zoom:50%;" />
+     <img src="/Users/fanqingwei/Desktop/学习/python学习\images\MVC.png" style="zoom:50%;" />
 
 ## 1.2 MVT模式
 
@@ -23,7 +23,7 @@
 - MVT模式中的’T’，与MVC中的V功能相同，负责封装构造要返回的html。
 - MVT与MVC模式具体差异不是很大，它们的思路是一样的
 
-<img src="C:\Users\felixsfan\Desktop\办公机备份\学习\python学习\images\MVT.png" style="zoom:50%;" />
+<img src="/Users/fanqingwei/Desktop/学习/python学习\images\MVT.png" style="zoom:50%;" />
 
 # 2. 模板
 
@@ -351,7 +351,7 @@ def runoob(request):
     return HttpResponse('姓名：{}'.format(name))
 ```
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\python学习\images\Django_post.png)
+![](/Users/fanqingwei/Desktop/学习/python学习\images\Django_post.png)
 
 ### 3、body
 
@@ -366,7 +366,7 @@ def runoob(request):
     return HttpResponse("菜鸟教程")
 ```
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\python学习\images\Django_body.png)
+![](/Users/fanqingwei/Desktop/学习/python学习\images\Django_body.png)
 
 ### 4、path
 
@@ -798,19 +798,19 @@ django中查找Templates，会根据setting.py的配置**自动搜索项目和�
 
 # 5. 序列化
 
-- **web请求不需要自己把数据序列化，框架已经自动完成了**
+- **web页面开发中的数据不需要自己在后端把数据序列化后再和模板(JSP、jinja2等)一起返回，返回的数据和页面一起显示到前端的时候也不需要反序列化。这些web框架已经自动完成了（直接返回数据让JS接收的方式除外，这种属于API形式。如ajax）**
 
   Django等web框架对于返回的数据和模板一起被模板引擎解析（模板引擎肯定序列化了数据和模板文件）返回前端浏览器，比如SpringMVC的@ResponseBody和springboot在使用@RestController 的时候已经确定使用json 格式传输，自动把实体类序列化成json（jackson包进行的处理），SSM框架需要我们自己导入json的jar包。
 
-- **API接口返回的数据需要自己序列化**。
+- **API接口需要自己在后端把需要返回的数据序列化，接收方接收后需要反序列化**。
 
 - 实体类对象序列化需要实现序列化接口或继承序列化类，并且需要序列化成json字符串传输
 
 ## **5.1 序列化的定义**
 
-**序列化：**把**对象**转化为可传输或可存储的字节序列过程称为序列化。
+**序列化：把对象**转化为可传输或可存储的字节序列过程称为序列化。
 
-**反序列化：**把字节序列**还原为对象**的过程称为反序列化。
+**反序列化：把字节序列还原为对象**的过程称为反序列化。
 
 ## **5.2 为什么要序列化？**
 
@@ -903,7 +903,6 @@ class User():
 def runoob(request):
     u = User("张三",18)
     return JsonResponse(serializers.serialize('json', u), safe=False)
-
 ```
 
 结果：
@@ -984,7 +983,7 @@ def hello(request):
 
 结果：
 
-```html
+```python
 <ocr_app.views.User object at 0x042BDD90>
 
 张三
@@ -1017,15 +1016,15 @@ def hello(request):
 **返回值的区别**：
 
 - API接口需要返回序列化后的数据（大部分为字典、字符串、数组、可序列化实体类对象等序列化后的json字符串数据）
-- web开发需要把返回的数据（字典、数组、字符串、实体类对象）和模板通过模板编译器序列化和处理后返回给客户端浏览器。
+- web页面开发中的数据，需要把数据（字典、数组、字符串、实体类对象）和模板(例如jsp、jinja2)通过模板编译器序列化(但是模板引擎自动完成了)和处理后返回给客户端浏览器。
 
 **序列化上的区别**：
 
-- **web请求不需要自己把数据序列化，框架已经自动完成了**
+- **web页面开发中的数据不需要自己在后端把数据序列化后再和模板(JSP、jinja2等)一起返回，返回的数据和页面一起显示到前端的时候也不需要反序列化。这些web框架已经自动完成了（直接返回数据让JS接收的方式除外，这种属于API形式。如ajax）**
 
   Django等web框架对于返回的数据和模板一起被模板引擎解析（模板引擎肯定序列化了数据和模板文件）返回前端浏览器，比如SpringMVC的@ResponseBody和springboot在使用@RestController 的时候已经确定使用json 格式传输，自动把实体类序列化成json（jackson包进行的处理），SSM框架需要我们自己导入json的jar包。
 
-- **API接口返回的数据需要自己序列化**。
+- **API接口需要自己在后端把需要返回的数据序列化，接收方接收后需要反序列化**。
 
 - 实体类对象序列化需要实现序列化接口或继承序列化类，并且需要序列化成json字符串传输
 
@@ -1057,7 +1056,7 @@ https://segmentfault.com/a/1190000015702416
 
 **CGI：**通用网关接口(Comman Gateway Interface)描述了客户端和服务器程序之间传输数据的一种标准，可以让一个客户端，从网页浏览器向执行在网络服务器上的应用程序请求数据。**它是一段程序，运行在Web Server上。**CGI独立于任何语言，CGI程序可以是任何脚本语言或完全独立编程语言实现，只要这个语言可以在这个系统上运行。Unix shell、Python、Ruby、PHP、Perl、C/C++和VB都可以用来编写CGI程序。最初CGI是在1993年由美国国家超级电脑应用中心为NCSA HTTPd web服务器开发的。这个web服务器使用了Unix shell环境变量来保存从web服务器传递出去的参数，然后生成一个运行CGI的独立的进程。CGI的处理流程如下图所示：
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\python学习\images\CGI.png)
+![](/Users/fanqingwei/Desktop/学习/python学习\images\CGI.png)
 
 - web服务器收到客户端(浏览器)的请求http request，启动CGI程序，并通过环境变量、标准输入传递数据；
 - CGI进程启动解析器、加载配置(如业务相关配置)、连接其它服务器(如数据库服务器)、逻辑处理等；
@@ -1074,11 +1073,11 @@ WSGI分为两个部分：一为"服务器"或"网关"，另一为"应用程序"�
 
 **uwsgi：**uwsgi是一个web服务器，它实现了wsgi协议、uwsgi协议、http等协议
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\python学习\images\uWSGI.png)
+![](/Users/fanqingwei/Desktop/学习/python学习\images\uWSGI.png)
 
 ### 区别联系
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\python学习\images\CGI和WSGI的联系.png)
+![](/Users/fanqingwei/Desktop/学习/python学习\images\CGI和WSGI的联系.png)
 
 
 
