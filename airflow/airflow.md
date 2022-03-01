@@ -443,7 +443,7 @@ min_file_process_interval = 5
 
 ### 方式一
 
-会出现airflow.contrib.auth.backends.password_auth不存在的情况，网上说pip install airflow[' XXX']安装，试了没有效果
+会出现`airflow.contrib.auth.backends.password_auth`不存在的情况，网上说pip install airflow[' XXX']安装，试了没有效果
 
 ```shell
 #在这里我们采用简单的password认证方式
@@ -564,7 +564,7 @@ nohup airflow scheduler > /dev/null 2>&1 &
 ```
 
 ```sh
-# 后台启动worker
+# 后台启动worker，celery才需要,本地版不需要
 nohup airflow celery worker > /dev/null 2>&1 &
 (python37) [root@VM-236-231-centos ~/airflow]# airflow celery worker -D
 [2021-08-18 09:58:45,623] {default_celery.py:100} WARNING - You have configured a result_backend of redis://HRzMs*7562kJRt@9.135.111.65:6380/1, it is highly recommended to use an alternative result_backend (i.e. a database).
@@ -895,5 +895,11 @@ $ airflow celery worker -D
 ```text
  强制celery worker运行采用root模式
  export C_FORCE_ROOT=True
+```
+
+## 5.3 celery模式在master节点上，通过webserver无法查看远程执行的任务日志
+
+```shell
+worker_log_server_port = 8793 # 端口及改成IP
 ```
 

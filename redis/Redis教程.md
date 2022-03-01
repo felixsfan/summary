@@ -2,7 +2,7 @@
 
 # **1.** **NoSQL(Not Only SQL)数据库介绍**
 
-![img](C:\Users\felixsfan\Desktop\办公机备份\学习\redis\images\wps1.jpg) 
+![img](/Users/fanqingwei/Desktop/学习/redis/images\wps1.jpg) 
 
 全文搜索：Apache Lucene
 
@@ -72,7 +72,7 @@ Redis2.4.17 小更新版本 NoSQL；
 
 就是把一些复杂操作耗时查询出来的结果，如果确定后面不怎么变化了，但是马上还有很多读请求，这个时候，就可以直接把结果存放在缓存中，后面直接读取缓存即可。
 
-<img src="C:/Users/felixsfan/Desktop/分布式/images/image-20200421122211630.png" alt="image-20200421122211630" style="zoom:50%;" />
+<img src="/Users/fanqingwei/Desktop/学习/分布式/images/image-20200421122211630.png" alt="image-20200421122211630" style="zoom:50%;" />
 
 就第一次从数据库中获取，后面直接从缓存中获取即可，性能提升很高
 
@@ -80,7 +80,7 @@ Redis2.4.17 小更新版本 NoSQL；
 
 MySQL这么重的数据库，并不适合于高并发，虽然可以使用，但是天然支持的就不好，因为MySQL的单机撑到2000QPS的时候，就容易报警了
 
-<img src="C:/Users/felixsfan/Desktop/分布式/images/image-20200421124116765.png" alt="image-20200421124116765" style="zoom:50%;" />
+<img src="/Users/fanqingwei/Desktop/学习/分布式/images/image-20200421124116765.png" alt="image-20200421124116765" style="zoom:50%;" />
 
 ##### 为什么缓存可以支持高并发
 
@@ -113,7 +113,7 @@ l Window64位下载地址：<https://github.com/MicrosoftArchive/redis/releases>
 
 l 目前最新的windows版本是2016年的3.2.100版本。
 
-![img](C:\Users\felixsfan\Desktop\办公机备份\学习\redis\images\wps2.jpg) 
+![img](/Users/fanqingwei/Desktop/学习/redis/images\wps2.jpg) 
 
 ## **3.2.** **单机版安装步骤**
 
@@ -391,7 +391,7 @@ redis 内存一共是10g，你现在往里面写了5g的数据，结果这些数
 
 如果redis的内存占用过多的时候，此时会进行内存淘汰，有如下一些策略：
 
-```
+```shell
 redis 10个key，现在已经满了，redis需要删除掉5个key
 
 1个key，最近1分钟被查询了100次
@@ -485,7 +485,7 @@ l Slave(从库)接收后，会载入快照文件并执行缓存的命令，从�
 
 l 在数据库使用阶段，Master(主库)会自动把每次收到的写命令同步到从服务器。 
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\redis\images\redis主从复制的原理.png)
+![](/Users/fanqingwei/Desktop/学习/redis/images\redis主从复制的原理.png)
 
 #### **7.1.4.**2 **Redis乐观复制策略** （弱一致性）
 
@@ -510,7 +510,7 @@ master node会在内存中常见一个backlog，master和slave都会保存一个
 - master node第一次执行全量复制，将所有数据发给slave node
 - master node后续持续将写命令，异步复制给slave node
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\redis\images\复制的完整的基本流程.png)
+![](/Users/fanqingwei/Desktop/学习/redis/images\复制的完整的基本流程.png)
 
 ##### 数据同步相关核心机制
 
@@ -539,7 +539,7 @@ info server，可以看到master run id
 
 从节点使用psync从master node进行复制，psync runid offset master node会根据自身的情况返回响应信息，可能是FULLRESYNC runid offset触发全量复制，可能是CONTINUE触发增量复制
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\redis\images\maste run id的作用.png)
+![](/Users/fanqingwei/Desktop/学习/redis/images\maste run id的作用.png)
 
 ##### 全量复制
 
@@ -592,9 +592,9 @@ l 使用Redis-sentinel,redis实例必须在非集群模式下运行。
 
 **查看哨兵信息**：/opt/redis-shaobing/src/redis-cli -h 192.168.17.129 -p 26379 info Sentinel
 
-**停掉****Master，查看哨兵日志，****从****库重启后不能再次成为Master。**
+**停掉**Master，查看哨兵日志，从库重启后不能再次成为Master
 
-![img](C:\Users\felixsfan\Desktop\办公机备份\学习\redis\images\wps4.jpg) 
+![img](/Users/fanqingwei/Desktop/学习/redis/images\wps4.jpg) 
 
 ### 7.2.2Redis主备切换的数据丢失问题：异步复制、集群脑裂
 
@@ -604,7 +604,7 @@ l 使用Redis-sentinel,redis实例必须在非集群模式下运行。
 
 因为master -> slave的复制是异步的，所以可能有部分数据还没复制到slave，master就宕机了，此时这些部分数据就丢失了。
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\redis\images\异步复制导致的数据丢失问题.png)
+![](/Users/fanqingwei/Desktop/学习/redis/images\异步复制导致的数据丢失问题.png)
 
 #### 脑裂导致的数据丢失
 
@@ -614,7 +614,7 @@ l 使用Redis-sentinel,redis实例必须在非集群模式下运行。
 
 因此旧master再次恢复的时候，会被作为一个slave挂到新的master上去，自己的数据会清空，重新从新的master复制数据
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\redis\images\集群脑裂导致的数据丢失问题.png)
+![](/Users/fanqingwei/Desktop/学习/redis/images\集群脑裂导致的数据丢失问题.png)
 
 同时原来的master节点上的，client像 旧的 master中写入数据，当网络分区恢复正常后，client写的数据就会因为复制，导致数据的丢失。
 
@@ -633,13 +633,13 @@ min-slaves-max-lag 10
 
 有了min-slaves-max-lag这个配置，就可以确保说，一旦slave复制数据和ack延时太长，就认为可能master宕机后损失的数据太多了，那么就拒绝写请求，这样可以把master宕机时由于部分数据未同步到slave导致的数据丢失降低的可控范围内
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\redis\images\异步复制导致数据丢失如何降低损失.png)
+![](/Users/fanqingwei/Desktop/学习/redis/images\异步复制导致数据丢失如何降低损失.png)
 
 - 减少脑裂的数据丢失
 
 如果一个master出现了脑裂，跟其他slave丢了连接，那么上面两个配置可以确保说，如果不能继续给指定数量的slave发送数据，而且slave超过10秒没有给自己ack消息，那么就直接拒绝客户端的写请求，这样脑裂后的旧master就不会接受client的新数据，也就避免了数据丢失，上面的配置就确保了，如果跟任何一个slave丢了连接，在10秒后发现没有slave给自己ack，那么就拒绝新的写请求，因此在脑裂场景下，最多就丢失10秒的数据
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\redis\images\脑裂导致数据丢失的问题如何降低损失.png)
+![](/Users/fanqingwei/Desktop/学习/redis/images\脑裂导致数据丢失的问题如何降低损失.png)
 
 ### 7.2.3Redis哨兵的底层原理
 
@@ -738,7 +738,7 @@ Redis 集群有16384个哈希槽，每个key通过CRC16校验后对16384取模�
 
 ### **7.3.4.** **Redis集群安装**
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\redis\images\22.png)
+![](/Users/fanqingwei/Desktop/学习/redis/images\22.png)
 
 #### 7.3.4.1使用redis提供的rb脚本
 
@@ -832,7 +832,7 @@ Redis5.0将Ruby创建集群的方式改为了C语言创建，创建命令也进�
 
 gossip：好处在于，元数据的更新比较分散，不是集中在一个地方，更新请求会陆陆续续，到达所有节点上去更新，有一定的延时，降低了压力; 缺点，元数据更新有延时，可能导致集群的一些操作会有一些滞后
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\redis\images\gossip协议维护集群元数据.png)
+![](/Users/fanqingwei/Desktop/学习/redis/images\gossip协议维护集群元数据.png)
 
 （2）10000端口
 
@@ -962,7 +962,7 @@ Codis is a proxy based high performance Redis cluster solution written in Go. It
 
 **Codis架构图：**
 
-![img](C:\Users\felixsfan\Desktop\办公机备份\学习\redis\images\wps5.jpg) 
+![img](/Users/fanqingwei/Desktop/学习/redis/images\wps5.jpg) 
 
 **其它版本的redis集群大家自己了解一下即可；**
 
@@ -976,11 +976,11 @@ Codis is a proxy based high performance Redis cluster solution written in Go. It
 
 ####     7.6.2.1简介
 
-​                高可用redis的基础，哨兵和集群都是在复制基础上实现的高可用
+高可用redis的基础，哨兵和集群都是在复制基础上实现的高可用
 
-​    复制主要实现了数据的多机备份，以及对于读操作的负载均衡和简单的故障恢复
+复制主要实现了数据的多机备份，以及对于读操作的负载均衡和简单的故障恢复
 
-​    缺陷是故障恢复无法自动化，写操作无法负载均衡，存储能力受单机限制
+ 缺陷是故障恢复无法自动化，写操作无法负载均衡，存储能力受单机限制
 
 ####     7.6.2.2复制缺点：复制延迟
 
@@ -1000,7 +1000,7 @@ Codis is a proxy based high performance Redis cluster solution written in Go. It
 
 ### 7.6.5操作集群原理
 
-​           ![](C:\Users\felixsfan\Desktop\办公机备份\学习\redis\images\1587020702645.png)
+​           ![](/Users/fanqingwei/Desktop/学习/redis/images\1587020702645.png)
 
 # **8.** **Redis的事务**
 
@@ -1010,9 +1010,9 @@ Codis is a proxy based high performance Redis cluster solution written in Go. It
 
 **Redis 只能保证一个client发起的事务中的命令可以连续的执行，而中间不会插入其他client的命令，因为Redis是单线程架构，所以在执行完事务内所有指令前是不可能再去同时执行其他客户端的请求的。**
 
-**Redis的事务没****有隔离级别****的概念，因为事务提交前任何指令都不会被实际执行，也就不存在“事务内的查询要看到事务里的更新，在事务外查询不能看到”这种问题了。**
+Redis的事务没有隔离级别的概念，因为事务提交前任何指令都不会被实际执行，也就不存在“事务内的查询要看到事务里的更新，在事务外查询不能看到”这种问题了。
 
-**Redis的事务****不保证原子性****，也就是不保证所有指令同时成功或同时失败，只有决定是否开始执行全部指令的能力，没有执行到一半进行回滚的能力。**
+Redis的事务不保证原子性，也就是不保证所有指令同时成功或同时失败，只有决定是否开始执行全部指令的能力，没有执行到一半进行回滚的能力。
 
 ## **7.2.** **事务操作的基本命令**
 
@@ -1054,7 +1054,7 @@ Codis is a proxy based high performance Redis cluster solution written in Go. It
 
 开启两个客户端 
 
-![img](C:\Users\felixsfan\Desktop\办公机备份\学习\redis\images\wps6.jpg) 
+![img](/Users/fanqingwei/Desktop/学习/redis/images\wps6.jpg) 
 
 ## **7.4.** **Redis事务的基本过程**
 
@@ -1072,11 +1072,11 @@ Codis is a proxy based high performance Redis cluster solution written in Go. It
 
 **1.如果是某个命令执行错误(使用方式错了)，那么其它的命令仍然会正常执行，然后在执行后返回错误信息；** 
 
-![img](C:\Users\felixsfan\Desktop\办公机备份\学习\redis\images\wps7.jpg) 
+![img](/Users/fanqingwei/Desktop/学习/redis/images\wps7.jpg) 
 
 **2.如果任何一个命令语法有错，redis会直接返回错误，所有的命令都不会执行；**
 
-![img](C:\Users\felixsfan\Desktop\办公机备份\学习\redis\images\wps8.jpg) 
+![img](/Users/fanqingwei/Desktop/学习/redis/images\wps8.jpg) 
 
 **3.redis不提供事务滚回的功能，开发者必须在事务执行出错后，自行恢复数据库状态；**
 
@@ -1258,7 +1258,7 @@ Mysql主从复制原理参考下文MySQL
 
 ## **Redis使用jedis原生api**
 
-![img](C:\Users\felixsfan\Desktop\办公机备份\学习\redis\images\wps9.png)
+![img](/Users/fanqingwei/Desktop/学习/redis/images\wps9.png)
 
 ## **Spring整合Redis**
 

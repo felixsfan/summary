@@ -390,7 +390,7 @@ This is third commit.
 
 通过 ======= 将发生冲突的两部分进行隔开，表示这两部分不同内容会在文件中的相同位置。
 
-HEAD 表示当前本地所在分支的别名，dev 表示将要将要合并过来的分支。
+HEAD 表示当前本地所在分支的别名，dev 表示将要合并过来的分支。
 
 手动修改 READ.md 文件去掉冲突，比如修改为：
 
@@ -455,11 +455,39 @@ git remote add 别名 远程地址
 例子：git remote add origin https://xx
 ```
 
-### 2.2 解除已经关联的远程分支
+### 2.2 新建远程仓库
 
+通常有两种获取 Git 项目仓库的方式：
+
+1. 将尚未进行版本控制的本地目录转换为 Git 仓库；
+2. 从其它服务器 **克隆** 一个已存在的 Git 仓库。
+
+#### 2.2.1 把本地项目提交到远程
+
+   1、在本地创建一个版本库（即文件夹），通过git init把它变成Git仓库；
+
+   2、把项目复制到这个文件夹里面，再通过git add .把项目添加到仓库；
+
+   3、再通过git commit -m "注释内容"把项目提交到仓库；
+
+   4、在Github上设置好SSH密钥后，新建一个远程仓库，通过`git remote add 远程仓库别名 远程仓库地址` 将本地仓库和远程仓库进行关联；
+
+   5、最后通过git push -u origin master把本地仓库的项目推送到远程仓库（也就是Github）上；（若新建远程仓库的时候自动创建了README文件会报错）
+
+#### 2.2.2 从远程仓库clone
+
+完整的把远程库克隆到本地，克隆下来后不要在主分支里面做开发；clone进行一次，从无到有的过程，更新用pull
+
+```shell
+git clone  远程地址
+
+例子：git clone https://xx
+如果你想在克隆远程仓库的时候，自定义本地仓库的名字，你可以通过额外的参数指定新的目录名：
+
+git clone <url> 文件名
 ```
-git remote remove origin
-```
+
+### 
 
 ### 2.3 git本地分支和远程分支如何关联
 
@@ -479,43 +507,17 @@ git remote remove origin
 
 **总结：一般我们就用`git push --set-upstream origin branch_name`来在远程创建一个与本地`branch_name`同名的分支并跟踪；利用`git checkout --track origin/branch_name`来在本地创建一个与`branch_name`同名分支跟踪远程分支。**
 
-### 2.4 origin / master与origin master的区别
+### 2.4 解除已经关联的远程分支
+
+```
+git remote remove origin
+```
+
+### 2.5 origin / master与origin master的区别
 
 **`origin master`是远程仓库分支，`origin/master`是名为“origin” 的远程分支的*本地副本*，名为`master`**
 
 `pull origin matser:develop`命令原理就是先git  fetch到`origin/master`，再`git merge`到本地`develop`分支
-
-### 2.5 新建远程仓库
-
-通常有两种获取 Git 项目仓库的方式：
-
-1. 将尚未进行版本控制的本地目录转换为 Git 仓库；
-2. 从其它服务器 **克隆** 一个已存在的 Git 仓库。
-
-#### 2.5.1 把本地项目提交到远程
-
-   1、在本地创建一个版本库（即文件夹），通过git init把它变成Git仓库；
-
-   2、把项目复制到这个文件夹里面，再通过git add .把项目添加到仓库；
-
-   3、再通过git commit -m "注释内容"把项目提交到仓库；
-
-   4、在Github上设置好SSH密钥后，新建一个远程仓库，通过`git remote add 远程仓库别名 远程仓库地址` 将本地仓库和远程仓库进行关联；
-
-   5、最后通过git push -u origin master把本地仓库的项目推送到远程仓库（也就是Github）上；（若新建远程仓库的时候自动创建了README文件会报错）
-
-#### 2.5.2 从远程仓库clone
-
-完整的把远程库克隆到本地，克隆下来后不要在主分支里面做开发；clone进行一次，从无到有的过程，更新用pull
-
-```shell
-git clone  远程地址
-
-例子：git clone https://xx
-如果你想在克隆远程仓库的时候，自定义本地仓库的名字，你可以通过额外的参数指定新的目录名：
-
-git clone <url> 文件名
-```
 
 ### 2.6 远程仓库操作
 
@@ -640,7 +642,7 @@ git clone  远程地址
 git clone <url> 文件名
 ```
 
-### 2.9 解决冲突
+### 2.9 push时解决冲突
 
 比如在同一个分支下，对本地的a文件做出了修改，此时我们在进行pull或push时如果远程分支下的a文件也有修改，那么代表本地和远程分支的代码是不同步的，此时就会引起冲突。
 

@@ -574,27 +574,22 @@ test2.py：
 
 #### 9.6.4.1 模块导入
 
-- 如果目录下面有`__init__.py`：则目录就变成了一个包，包其实本质上还是模块，python解释器会根据搜索路径区搜索包或者模块，因此**能在sys.path里面找到通向包或者模块的的路径即可**
+- python解释器会根据搜索路径区搜索包或者模块，因此**能在sys.path+(from [xxx.]包 import 模块或import [xxx.]包/模块))里面找到通向包或者模块的的路径即可**
 
   导入路径：
 
   ```python
-  import 包名  # 需要用到_init_.py,会执行_init_.py;否则找不到包下的模块
-  import 包名.模块名  # 不会执行_init_.py
-  from 包名 import 模块名 # 会执行_init_.py
-  from 包名.模块名 import 成员 # 会执行_init_.py
+  import [文件夹].包名  # 需要用到_init_.py,会执行_init_.py;否则找不到包下的模块
+  import [文件夹].包名.模块名  # 不会执行_init_.py
+  from [文件夹].包名 import 模块名 # 会执行_init_.py
+  from [文件夹].包名.模块名 import 成员 # 会执行_init_.py
   ```
 
-- 如果**xxx/模块名.py**中**xxx**是单纯的目录：则xxx需要在sys.path中
+- 至于`__init__.py`是为了方便导入包下的模块,包里包含哪些其他模块由`__init__.py`决定。
 
-  导入路径：
+  包和文件夹的区别就是，包有`__init__.py`文件，包本质上都是模块,包里包含哪些其他模块由`__init__.py`决定，import 包名导入`__init__.py`里面定义的所有模块。
 
-  ```python
-  import 模块名
-  from 模块名 import 成员名
-  ```
-
--  Python 所有加载的**模块**信息都存放在 **sys.modules** 字典结构中，当 import 一个模块时，会按如下步骤来进行
+- Python 所有加载的模块信息都存放在 **sys.modules** 字典结构中，当 import 一个模块时，会按如下步骤来进行
 
   1. 如果 import A，检查 sys.modules 中是否已经有 A，如果有则不加载，如果没有则为 A 创建 module 对象，并加载 A，即可以重复导入，但只加载一次。
 
@@ -680,64 +675,68 @@ a.add()
 
 ### 9.8.1 Python中的包
 
-包是一个分层次的文件目录结构，它定义了一个由模块及子包，和子包下的子包等组成的 Python 的应用环境。
-
-简单来说，包就是文件夹，但该文件夹下必须存在 __init__.py 文件, 该文件的内容可以为空。**__init__.py** 用于标识当前文件夹是一个包。
-
-考虑一个在 **package_runoob** 目录下的 **runoob1.py、runoob2.py、`__init__.py`** 文件，test.py 为测试调用包的代码，目录结构如下：
-
-```python
-test.py
-package_runoob
-|-- __init__.py
-|-- runoob1.py
-|-- runoob2.py
-```
+- 包就是文件夹，工程类的项目用文件夹区分层次，为了简化模块的导入操作，在文件夹下增加`__init__.py`,文件夹就模块化变成了包。
+- 简化的导入操作在`__init__.py`里完成，包里包含哪些其他模块由`__init__.py`决定，import 包名就是导入`__init__.py`里面定义的所有模块。
+- 包和文件夹的区别就是，包有`__init__.py`文件。
+- 在python在搜索模块时，包的本质就是模块。
 
 ### 9.8.2 Python中____init__.py文件的作用详解(模块包和文件夹区别)
 
-`__init__.py` 文件的作用是将文件夹变为一个Python模块包,Python 中的每个模块的包中，都有`__init__.py` 文件。
-
 #### 9.8.2.1 标识该目录是一个python的模块包
+
+`__init__.py` 文件的作用是将文件夹变为一个Python模块包,Python 中的每个模块的包中，都有`__init__.py` 文件。
 
 如果你是使用python的相关IDE来进行开发，那么如果目录中存在该文件，该目录就会被识别为 **module package 。**
 
 #### 9.8.2.2 简化模块导入操作
 
-假设我们的模块包的目录结构如下：
+- 1.假设我们的模块包的目录结构如下：
 
-```shell
-.
-└── mypackage
-    ├── __init__.py
-    ├── subpackage_1
-    │   ├── test11.py
-    │   └── test12.py
-    ｜  └── __init__.py
-    ├── subpackage_2
-    │   ├── test21.py
-    │   └── test22.py
-    │   └── __init__.py
-    └── subpackage_3
-        ├── test31.py
-        └── test32.py
-        └── __init__.py
-```
+  ```css
+  pythonpath='./demo'
+  demo
+  └── mypackage
+      ├── subpackage_1
+      │   ├── test11.py
+      │   └── test12.py
+      ├── subpackage_2
+      │   ├── test21.py
+      │   └── test22.py
+      └── subpackage_3
+          ├── test31.py
+          └── test32.py
+  ```
 
-如果我们使用最直接的导入方式，将整个文件拷贝到工程目录下，然后直接导入：
+  2.如果我们使用最直接的导入方式，将整个文件拷贝到工程目录下，然后直接导入：
 
-```python
-from mypackage.subpackage_1 import test11
-from mypackage.subpackage_1 import test12
-from mypackage.subpackage_2 import test21
-from mypackage.subpackage_2 import test22
-from mypackage.subpackage_3 import test31
-from mypackage.subpackage_3 import test32
-```
+  ```jsx
+  from mypackage.subpackage_1 import test11
+  from mypackage.subpackage_1 import test12
+  from mypackage.subpackage_2 import test21
+  from mypackage.subpackage_2 import test22
+  from mypackage.subpackage_3 import test31
+  from mypackage.subpackage_3 import test32
+  ```
 
-当然这个例子里面文件比较少，如果模块比较大，目录比较深的话，可能自己都记不清该如何导入。（很有可能，哪怕只想导入一个模块都要在目录中找很久）
+  3.这样的话，看起来就会很麻烦，查找的时候也会麻烦，此时`__init__.py`就起到了简化的作用。
 
-这种情况下，`__init__.py` 就很有作用了。我们先来看看该文件是如何工作的。
+  4.mypackage下新建`__init__.py`	并添加如下代码
+
+  ```python
+  from mypackage.subpackage_1 import test11
+  from mypackage.subpackage_1 import test12
+  from mypackage.subpackage_2 import test21
+  from mypackage.subpackage_2 import test22
+  from mypackage.subpackage_3 import test31
+  from mypackage.subpackage_3 import test32
+  ```
+
+  5.导入
+
+  ```python
+  from mypackage import test11
+  #就可以使用test11...了
+  ```
 
 #### 9.8.2.3 `__init__.py` 是怎么工作的？
 
@@ -868,7 +867,7 @@ my_package
    ┗━━ module2.py
 ```
 
-#### 9.8.3.2 import 包名[.模块名 [as 别名]]
+#### 9.8.3.2 import [文件夹名.]包名[.模块名 [as 别名]]
 
 ```python
 my_package
@@ -926,7 +925,7 @@ AttributeError: module 'my_package' has no attribute 'module1'
 
 ⚠️注意点：
 
-我们知道，**包的本质就是模块，因此直接导入包时，当前程序中会包含一个和包名同名且类型为 module 的变量。因此程序包含的my_package变量(包名，本质是模块)里没有module1**，导入模块my_package时是找不到module1模块的，除非`__init__.py`里有导入：
+我们知道，**包的本质就是模块，因此和导入模块一样。直接导入包时，当前程序中也会以包名(my_package)创建一个类型为 module 的变量，但module 类型的my_package变量(包名，本质是模块)里没有module1的**，导入模块my_package时是找不到module1模块的，除非`__init__.py`里有导入：
 
 ```python
 import my_package
@@ -947,7 +946,7 @@ http://c.biancheng.net/
 <class 'module'>
 ```
 
-#### 9.8.3.3 from 包名 import 模块名 [as 别名]
+#### 9.8.3.3 from [文件夹名.]包名 import 模块名 [as 别名]
 
 仍以导入 my_package 包中的 module1 模块为例，使用此语法格式的实现代码如下：
 
@@ -976,7 +975,7 @@ module.display("http://c.biancheng.net/golang/")
 
 同样，既然包也是模块，那么这种语法格式自然也支持 `from 包名 import *` 这种写法，它和 import 包名 的作用一样，都只是将该包的 `__init__.py `文件导入并执行。
 
-#### 9.8.3.4 from 包名.模块名 import 成员名 [as 别名]
+#### 9.8.3.4 from [文件夹名.]包名.模块名 import 成员名 [as 别名]
 
 此语法格式用于向程序中导入“包.模块”中的指定成员（变量、函数或类）。通过该方式导入的变量（函数、类），在使用时可以直接使用变量名（函数名、类名）调用，例如：
 
@@ -1008,35 +1007,30 @@ from my_package.module1 import *
 display("http://c.biancheng.net/python")
 ```
 
-#### 9.8.3.5 总结
+### 9.8.4 总结
 
-- 如果目录下面有`__init__.py`：则目录就变成了一个包，包其实本质上还是模块，python解释器会根据搜索路径区搜索包或者模块，因此**能在sys.path里面找到通向包或者模块的的路径即可**
-
-  导入路径：
-
-  ```python
-  import 包名  # 需要用到_init_.py,会执行_init_.py;否则找不到包下的模块
-  import 包名.模块名  # 不会执行_init_.py
-  from 包名 import 模块名 # 会执行_init_.py
-  from 包名.模块名 import 成员 # 会执行_init_.py
-  ```
-
-- 如果**xxx/模块名.py**中**xxx**是单纯的目录：则xxx需要在sys.path中
+- python解释器会根据搜索路径区搜索包或者模块，因此**能在sys.path+(from [xxx.]包 import 模块或import [xxx.]包/模块))里面找到通向包或者模块的的路径即可**
 
   导入路径：
 
   ```python
-  import 模块名
-  from 模块名 import 成员名
+  import [文件夹].包名  # 需要用到_init_.py,会执行_init_.py;否则找不到包下的模块
+  import [文件夹].包名.模块名  # 不会执行_init_.py
+  from [文件夹].包名 import 模块名 # 会执行_init_.py
+  from [文件夹].包名.模块名 import 成员 # 会执行_init_.py
   ```
 
--  Python 所有加载的模块信息都存放在 **sys.modules** 字典结构中，当 import 一个模块时，会按如下步骤来进行
+- 至于`__init__.py`是为了方便导入包下的模块,包里包含哪些其他模块由`__init__.py`决定。
+
+  包和文件夹的区别就是，包有`__init__.py`文件，包本质上都是模块,包里包含哪些其他模块由`__init__.py`决定，import 包名导入`__init__.py`里面定义的所有模块。
+
+- Python 所有加载的模块信息都存放在 **sys.modules** 字典结构中，当 import 一个模块时，会按如下步骤来进行
 
   1. 如果 import A，检查 sys.modules 中是否已经有 A，如果有则不加载，如果没有则为 A 创建 module 对象，并加载 A，即可以重复导入，但只加载一次。
 
   2. 如果 from A import B，先为 A 创建 module 对象，再解析 A，从中寻找 B 并填充到 A 的 __dict__ 中
 
-### 9.8.4 相对路径导入问题
+### 9.8.5 相对路径导入问题
 
 https://www.cnblogs.com/f-ck-need-u/p/9961372.html#%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84%E5%AF%BC%E5%85%A5%E9%99%B7%E9%98%B1
 
@@ -1997,7 +1991,7 @@ pip3 install kafka
 - 使用豆瓣镜像
 
 ```shell
-pip install wheel -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com
+pip install apache-airflow==2.1.2 -i https://pypi.douban.com/simple/ --trusted-host pypi.douban.com
 ```
 
 - 公司镜像

@@ -679,6 +679,24 @@ Bye
 8 rows in set (0.01 sec)
 ```
 
+```
+1、character_set_client:客户端数据解析、编码的字符集。
+
+2、character_set_connection:连接层字符集。
+
+3、character_set_server:服务器内部操作字符集。
+
+4、character_set_results:查询结果字符集。
+
+5、character_set_database:当前数据库的字符集。
+
+6、character_set_system:系统源数据(字段名等)字符集。
+```
+
+![0306e3573e5b5019485395603ace6dfe.jpeg-wh_651x-s_532315555](/Users/fanqingwei/Desktop/学习/数据库/images/0306e3573e5b5019485395603ace6dfe.jpeg-wh_651x-s_532315555.jpeg)
+
+![MySQL编码](/Users/fanqingwei/Desktop/学习/数据库/images/MySQL编码.jpeg)
+
 ### 1.character_set_system
 
 character_set_system 是系统元数据(字段名等)存储时使用的编码字符集，该字段和具体存储的数据无关。总是固定不变的——utf8. 我们可以不去管它。
@@ -699,7 +717,7 @@ ci 代表： casesensitive ignore 排序时不考虑大小写；而 _bin 结尾�
 
 ### **3. character_set_database**
 
-```
+```mysql
 CREATE DATABASE db_name
     [[DEFAULT] CHARACTER SET charset_name]
     [[DEFAULT] COLLATE collation_name]
@@ -750,7 +768,27 @@ mysqld 在返回 查询 结果集 或者错误信息到 client 时，使用的�
 
 ## 19.2 设置编码
 
-### **19.2.1 set names 'xxx' 命令**
+### 19.2.1 查看mysql全局的编码设置
+
+```sql
+show variables like 'character%';
+```
+
+### 19.2.2 修改编码
+
+一是通过修改配置文件进行改动，这种改动是永久生效的
+
+```shell
+set character_set_client=utf8
+set character_set_connection=utf8
+set character_set_database=utf8
+set character_set_results=utf8
+set character_set_server=utf8
+```
+
+二是直接set命令进行改动，但这种改动并不能永久生效，仅仅针对当前会话
+
+#### **19.2.2.1 set names 'xxx' 命令**
 
 ```shell
 set names GBK;
@@ -766,7 +804,7 @@ set names 'xxx' 命令可以使 character_set_client、character_set_connection�
 
 减少编码转换的需要。
 
-### 19.2.2 set charset xxx
+#### 19.2.2.2 set charset xxx
 
 ```shell
 set charset utf8
@@ -774,13 +812,13 @@ set charset utf8
 
 可以看到改变的是character_set_client、character_set_results，相比于set names xxx,少了character_set_connection
 
-### **19.2.3 default-character-set = charset_name 配置参数**
+#### 19.2.2.3 default-character-set = charset_name 配置参数
 
 default-character-set 能够同时指定 client 端 和 connection 的字符，也就是：**character_set_client 和 character_set_connection的值，实际上还设置了 character-set-results 的值**。
 
 **所以 default-character-set 的作用和 set names 'xxx' 的作用是一样的**。 
 
-## **19.3 **编码过程
+### **19.2.3 **编码过程
 
 **character_set_server 和 character_set_database** 二者 的作用其实是相同的，都是设置 字符最终存储到磁盘时，使用的编码字符集。只不过 二者设置的级别不一样而已。character_set_server 设置了 mysqld 级别的存储编码字符集，而character_set_database设置 mysqld 中单个 database 的存储编码字符集。而且character_set_database的默认值就是 character_set_server 的值。
 

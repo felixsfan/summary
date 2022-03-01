@@ -2111,10 +2111,21 @@ gunzip 命令的基本格式为：
 [root@localhost ~]# gunzip -r test/
 ```
 
+## 8.7 常用操作
+
+### 8.7.1 查看压缩文件内容
+
 注意，如果我们压缩的是一个纯文本文件，则可以直接使用 zcat 命令在不解压缩的情况下查看这个文本文件中的内容。例如：
 
 ```shell
 [root@localhost ~]# zcat anaconda-ks.cfg.gz
+```
+
+### 8.7.2 过滤掉某些文件夹
+
+```shell
+[sett@VM-253-83-centos ~/settlement]$tar -zcvf monthly_defer.tar.gz monthly_defer --exclude=water_data
+# 打包过滤掉某些文件夹
 ```
 
 # 10.Linux（centos）下载软件
@@ -3432,9 +3443,9 @@ ps 命令的基本格式如下：
 
 ```shell
 [root@localhost ~]# ps aux
-\#查看系统中所有的进程，使用 BS 操作系统格式
+#查看系统中所有的进程，使用 BS 操作系统格式
 [root@localhost ~]# ps -le
-\#查看系统中所有的进程，使用 Linux 标准命令格式
+#查看系统中所有的进程，使用 Linux 标准命令格式
 ```
 
 选项：
@@ -3929,7 +3940,7 @@ killall 命令的基本格式如下：
 
 ```shell
 [root@localhost ~]# service httpd start
-\#启动RPM包默认安装的apache服务
+#启动RPM包默认安装的apache服务
 [root@localhost ~]# ps aux | grep "httpd" | grep -v "grep"
 root 1600 0.0 0.2 4520 1696? Ss 19:42 0:00 /usr/local/apache2/bin/httpd -k start
 daemon 1601 0.0 0.1 4520 1188? S 19:42 0:00 /usr/local/apache2/bin/httpd -k start
@@ -3937,11 +3948,11 @@ daemon 1602 0.0 0.1 4520 1188? S 19:42 0:00 /usr/local/apache2/bin/httpd -k star
 daemon 1603 0.0 0.1 4520 1188? S 19:42 0:00 /usr/local/apache2/bin/httpd -k start
 daemon 1604 0.0 0.1 4520 1188? S 19:42 0:00 /usr/local/apache2/bin/httpd -k start
 daemon 1605 0.0 0.1 4520 1188? S 19:42 0:00 /usr/local/apache2/bin/httpd -k start
-\#查看httpd进程
+#查看httpd进程
 [root@localhost ~]# killall httpd
-\#杀死所有进程名是httpd的进程
+#杀死所有进程名是httpd的进程
 [root@localhost ~]# ps aux | grep "httpd" | grep -v "grep"
-\#查询发现所有的httpd进程都消失了
+#查询发现所有的httpd进程都消失了
 ```
 
 ## 14.10 Linux工作管理简介
@@ -5039,7 +5050,7 @@ pidstat主要用于监控全部或指定进程占用系统资源的情况,如CPU
 
 使用方法：
 
-```
+```shell
 pidstat –d interval
 #统计CPU使用信息
 pidstat –u interval
