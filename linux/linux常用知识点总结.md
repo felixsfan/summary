@@ -678,7 +678,75 @@ locate 指令可以快速定位文件路径。locate 指令**利用事先建立�
 /root/Directory/.idea/dictionaries/felixsfan.xml
 ```
 
+## 2.10 Linux PATH环境变量及作用
 
+在讲解 PATH 环境变量之前，首先介绍一下 which 命令，它用于查找某个命令所在的绝对路径。例如：
+
+```shell
+[root@localhost ~]# which rm
+/bin/rm
+[root@localhost ~]# which rmdir
+/bin/rmdir
+[root@localhost ~]# which ls
+alias ls='ls --color=auto'
+        /bin/ls
+```
+
+注意，ls 是一个相对特殊的命令，它使用 alias 命令做了别名，也就是说，我们常用的 ls 实际上执行的是 ls --color=auto。
+
+通过使用 which 命令，可以查找各个外部命令（和 Shell 内置命令相对）所在的绝对路径。学到这里，读者是否有这样一个疑问，为什么前面在使用 rm、rmdir、ls 等命令时，无论当前位于哪个目录，都可以直接使用，而无需指明命令的执行文件所在的位置（绝对路径）呢？其实，这是 PATH 环境变量在起作用。
+
+首先，执行如下命令：
+
+```shell
+[root@localhost ~]# echo $PATH
+/usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin:/root/bin
+```
+
+这里的 echo 命令用来输出 PATH 环境变量的值（这里的 $ 是 PATH 的前缀符号），PATH 环境变量的内容是由一堆目录组成的，各目录之间用冒号“:”隔开。当执行某个命令时，Linux 会依照 PATH 中包含的目录依次搜寻该命令的可执行文件，一旦找到，即正常执行；反之，则提示无法找到该命令。
+
+> 如果在 PATH 包含的目录中，有多个目录都包含某命令的可执行文件，那么会执行先搜索到的可执行文件。
+
+从执行结果中可以看到，/bin 目录已经包含在 PATH 环境变量中，因此在使用类似 rm、rmdir、ls等命令时，即便直接使用其命令名，Linux 也可以找到该命令。
+
+为了印证以上观点，下面举个反例，如果我们将 ls 命令移动到 /root 目录下，由于 PATH 环境变量中没有包含此目录，所有当直接使用 ls 命令名执行时，Linux 将无法找到此命令的可执行文件，并提示 No such file or directory，示例命令如下：
+
+```shell
+[root@localhost ~]# mv /bin/ls /root
+[root@localhost ~]# ls
+bash: /bin/ls: No such file or directory
+```
+
+
+此时，如果仍想使用 ls 命令，有 2 种方法，一种是直接将 /root 添加到 PATH 环境变量中，例如：
+
+```shell
+[root@localhost ~]# PATH=$PATH:/root
+[root@localhost ~]# echo $PATH
+/usr/local/sbin:/usr/sbin:/usr/local/bin:/usr/bin:/bin:/root/bin:/root
+[root@localhost ~]# ls
+Desktop    Downloads    Music    post-install     Public    Videos
+Documents  ls           Pictures post-install.org Templates
+```
+
+> 注意，这种方式只是临时有效，一旦退出下次再登陆的时候，$PATH 就恢复成了默认值。
+
+
+另一种方法是以绝对路径的方式使用此命令，例如：
+
+```shell
+[root@localhost ~]# /root/ls
+Desktop    Downloads    Music    post-install     Public    Videos
+Documents  ls           Pictures post-install.org Templates
+```
+
+ 
+
+为了不影响系统的正常使用，强烈建议大家将移动后的 ls 文件还原，命令如下：
+
+```shell
+[root@localhost ~]# mv /root/ls /bin
+```
 
 # 3.文本处理
 
@@ -4094,7 +4162,9 @@ nohup airflow webserver > /dev/null 2>&1 &
 
 fg 命令用于把后台工作恢复到前台执行，该命令的基本格式如下：
 
+```shell
 [root@localhost ~]#fg %工作号
+```
 
 注意，在使用此命令时，％ 可以省略，但若将`% 工作号`全部省略，则此命令会将带有 + 号的工作恢复到前台。另外，使用此命令的过程中， % 可有可无。
 
@@ -4516,7 +4586,7 @@ sunrpc  rpc_pipefs         0       0         0   -  /var/lib/nfs/rpc_pipefs
 
 我们经常需要查看Linux服务器磁盘挂载使用情况，可以使用df命令。我们使用此命令除了会查看到系统盘以及数据盘挂载情况，还会看到一个tmpfs也在挂载。
 
-我们通过df可以看到tmpfs是挂载到/dev/下的shm目录，tmpfs是什么呢? 其实是一个临时文件系统，驻留在内存中，所以/dev/shm/这个目录不在硬盘上，而是在内存里。因为是在内存里，所以读写非常快，可以提供较高的访问速度。linux下，tmpfs默认最大为内存的一半大小，使用df -h命令刚才已经看到了，但是这个df查看到的挂载内存大小的数值，如果没有使用，是没有去真正占用的，只有真正在tmpfs存储数据了，才会去占用。比如，tmpfs大小是499M,用了10M大小，内存里就会使用真正使用10M，剩余的489M是可以继续被服务器其他程序来使用的。但是因为数据是在内存里，所以断电后文件会丢失，内存数据不会和硬盘中数据一样可以永久保存。了解了tmpfs这个特性可以用来提高服务器性能，把一些对读写性能要求较高，但是数据又可以丢失的这样的数据保存在/dev/shm中，来提高访问速度。
+我们通过df可以看到tmpfs是挂载到/dev/shm目录，tmpfs是什么呢? 其实是一个临时文件系统，驻留在内存中，所以/dev/shm/这个目录不在硬盘上，而是在内存里。因为是在内存里，所以读写非常快，可以提供较高的访问速度。linux下，tmpfs默认最大为内存的一半大小，使用df -h命令刚才已经看到了，但是这个df查看到的挂载内存大小的数值，如果没有使用，是没有去真正占用的，只有真正在tmpfs存储数据了，才会去占用。比如，tmpfs大小是499M,用了10M大小，内存里就会使用真正使用10M，剩余的489M是可以继续被服务器其他程序来使用的。但是因为数据是在内存里，所以断电后文件会丢失，内存数据不会和硬盘中数据一样可以永久保存。了解了tmpfs这个特性可以用来提高服务器性能，把一些对读写性能要求较高，但是数据又可以丢失的这样的数据保存在/dev/shm中，来提高访问速度。
 
 ## 16.4 统计目录或文件所占磁盘空间大小(du)
 
@@ -5168,3 +5238,16 @@ perf是Linux kernel自带的系统性能优化工具。优势在于与Linux Kern
 # 20. Linux编码问题
 
 大致分为存储乱码和显示乱码
+
+# 21.VIM常用快捷操作
+
+- ctrl+a→  行首
+- ctrl+e → 行尾
+- `^` → 到本行第一个不是blank字符的位置（所谓blank字符就是空格，tab，换行，回车等）
+- `$` → 到本行行尾
+- Shift+G→  末尾
+- gg→  开头
+- N`G` → 到第 N 行
+
+- `/pattern` → 搜索 `pattern` 的字符串
+- N→ 下移N行

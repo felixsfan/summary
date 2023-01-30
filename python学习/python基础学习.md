@@ -1034,11 +1034,13 @@ display("http://c.biancheng.net/python")
 
 https://www.cnblogs.com/f-ck-need-u/p/9961372.html#%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84%E5%AF%BC%E5%85%A5%E9%99%B7%E9%98%B1
 
+https://blog.csdn.net/u011519550/article/details/104732765
+
 绝对导入的格式为 import A.B 或 from A import B，相对导入格式为 from .A import B 或 from ..X import Y，**.** 代表当前模块，**..** 代表上层模块，**...** 代表上上层模块，依次类推。
 
 **需要注意：存在相对导入语句的模块，是不能直接运行的**
 
-这是因为：一个模块直接运行，Python 认为这个模块就是顶层模块，不存在层次结构，所以找不到其它的相对路径。
+这是因为：一个模块直接运行，Python貌似有个坑爹的设定，**当前目录不会被当做package**，Python 认为这个模块就是顶层模块，不存在层次结构，所以找不到其它的相对路径。
 
 而要正确运行，就要显式的指定路径
 
@@ -1150,8 +1152,8 @@ bar.class_var, bar.i_var
 MyClass.class_var
 ## 1
 
-##所有MyClass的对象都能够访问到class_var，
-##同时class_var也能被MyClass直接访问到self.class_var或类名.calss_var
+##所有MyClass的对象都能够访问到class_var:1. MyClass(2).class_var
+##同时class_var也能被MyClass直接访问到:2. self.class_var或3. 类名.calss_var
 ##这个类变量有点像Java或者C++里面的静态成员，但是又不一样
 ```
 
@@ -1403,12 +1405,12 @@ https://blog.csdn.net/weixin_40155271/article/details/80869542
 
 ```python
 python3 -m pdb myscript.py
-pdb.set_trace() # 引入内置的pdb模块，并运行set_trace函数就可以触发调试器
+pdb.set_trace() # 设置断点,引入内置的pdb模块，并运行set_trace函数就可以触发调试器
 ```
 
 **常用命令**
 
-| 命令 | 例子                                 |          |
+| 命令 | 例子                                 | 英文单词 |
 | :--- | ------------------------------------ | -------- |
 | b    | b 10 #断点设置在本py的第10行         | break    |
 |      | b ots.py:20 #断点设置到 ots.py第20行 |          |
@@ -2027,7 +2029,7 @@ Python 2.7.9 + 或 Python 3.4+ 以上版本都自带 pip 工具。
 
 pip 官网：https://pypi.org/project/pip/
 
-#### 方法一: 软件包管理工具
+#### 方法一:  软件包管理工具
 
 python-dev或python-devel称为是python的开发包，
 
