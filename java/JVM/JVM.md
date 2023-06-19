@@ -1,8 +1,12 @@
 JVM核心知识点
 
+[TOC]
+
+
+
 ## 图解
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images\JVM.png)
+![](/Users/fanqingwei/Desktop/学习/java/JVM/images\JVM.png)
 
 ## 超牛逼博客
 
@@ -16,7 +20,7 @@ jvm有很多，不只是Hotspot,还有JRockit、J9等
 
 # JVM基本结构
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images\20200429200800.png)
+![](/Users/fanqingwei/Desktop/学习/java/JVM/images\20200429200800.png)
 
 JVM由三个主要的子系统构成
 
@@ -26,13 +30,13 @@ JVM由三个主要的子系统构成
 
 ## 类加载子系统
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images\类加载子系统.png)
+![](/Users/fanqingwei/Desktop/学习/java/JVM/images\类加载子系统.png)
 
 ## JVM内存结构
 
 基本结构与之前类似，只是**Java8**取消了之前的“永久代”，取而代之的是“元空间”——**Metaspace**，两者本质是一样的。**“永久代”使用的是JVM的堆内存，而“元空间”是直接使用的本机物理内存**。
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images\JVM内存模型.png)
+![](/Users/fanqingwei/Desktop/学习/java/JVM/images\JVM内存模型.png)
 
 ### 1.方法区（JDK1.8后叫元空间）
 
@@ -42,7 +46,7 @@ JVM由三个主要的子系统构成
 
 虚拟机启动时自动分配创建，用于存放对象的实例，几乎所有对象都在堆中分配内存，当对象无法在该空间申请到内存是将抛出OutOfMenoryError异常。同时也是垃圾收集器管理的主要区域。
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images\堆内存.png)
+![](/Users/fanqingwei/Desktop/学习/java/JVM/images\堆内存.png)
 
 ### 3.程序计数器（Program Counter Register）
 
@@ -74,7 +78,7 @@ JVM由三个主要的子系统构成
 
 从一组名为“GC Roots”的根节点对象出发，向下遍历。那些没有被遍历到、与GC Roots形成通路的对象，会被标记为“回收”。
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images\引用计数法.png)
+![](/Users/fanqingwei/Desktop/学习/java/JVM/images\引用计数法.png)
 
 ## 哪些对象可以作为GC Roots？
 
@@ -95,7 +99,7 @@ JVM由三个主要的子系统构成
 
 用得不多，比如`-Xint`，解释执行模式；`-Xcomp`，编译模式；`-Xmixed`，开启混合模式（默认）。
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images/InkedJVMXParam_LI.jpg)
+![](/Users/fanqingwei/Desktop/学习/java/JVM/images/InkedJVMXParam_LI.jpg)
 
 ### XX参数
 
@@ -295,15 +299,15 @@ java.lang.OutOfMemoryError: GC overhead limit exceeded
 
 ## 垃圾回收的过程
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images\垃圾回收过程.png)
+![](/Users/fanqingwei/Desktop/学习/java/JVM/images\垃圾回收过程.png)
 
 ## 四大垃圾收集算法
 
 ### 标记整理
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images/GCbq.png)
+![](/Users/fanqingwei/Desktop/学习/java/JVM/images/GCbq.png)
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images/GCbz.png)
+![](/Users/fanqingwei/Desktop/学习/java/JVM/images/GCbz.png)
 
 1.不产生内存碎片
 
@@ -311,9 +315,9 @@ java.lang.OutOfMemoryError: GC overhead limit exceeded
 
 ### 标记清除
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images/GCbq.png)
+![](/Users/fanqingwei/Desktop/学习/java/JVM/images/GCbq.png)
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images/GCbq2.png)
+![](/Users/fanqingwei/Desktop/学习/java/JVM/images/GCbq2.png)
 
 1.效率问题，标记和清楚两个过程效率都不高
 
@@ -321,9 +325,9 @@ java.lang.OutOfMemoryError: GC overhead limit exceeded
 
 ### 复制算法
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images/GCfz.png)
+![](/Users/fanqingwei/Desktop/学习/java/JVM/images/GCfz.png)
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images/GCfz2.png)
+![](/Users/fanqingwei/Desktop/学习/java/JVM/images/GCfz2.png)
 
 1.解决了效率问题
 
@@ -376,11 +380,11 @@ Java 8可以将垃圾收集器分为四类。
 
 `Serial`、`Parallel Scavenge`、`ParNew`用户回收新生代；`SerialOld`、`ParallelOld`、`CMS`用于回收老年代。而`G1`收集器，既可以回收新生代，也可以回收老年代。
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images\垃圾收集器.png)
+![](/Users/fanqingwei/Desktop/学习/java/JVM/images\垃圾收集器.png)
 
 连线表示可以搭配使用，红叉表示不推荐一同使用，比如新生代用`Serial`，老年代用`CMS`。
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images\GCqi2.png)
+![](/Users/fanqingwei/Desktop/学习/java/JVM/images\GCqi2.png)
 
 
 
@@ -390,7 +394,7 @@ Java 8可以将垃圾收集器分为四类。
 
 使用`-XX:+UseSerialGC`可以显式开启，开启后默认使用`Serial`+`SerialOld`的组合。
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images\serial.jpeg)
+![](/Users/fanqingwei/Desktop/学习/java/JVM/images\serial.jpeg)
 
 ### ParNew收集器
 
@@ -398,7 +402,7 @@ Java 8可以将垃圾收集器分为四类。
 
 使用`-XX:+UseParNewGC`可以显式开启，开启后默认使用`ParNew`+`SerialOld`的组合。但是由于`SerialOld`已经过时，所以建议配合`CMS`使用。
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images\parnew.jpeg)
+![](/Users/fanqingwei/Desktop/学习/java/JVM/images\parnew.jpeg)
 
 ### Parallel Scavenge收集器（JDK8默认的）
 
@@ -406,7 +410,7 @@ Java 8可以将垃圾收集器分为四类。
 
 使用`-XX:+UseParallelGC`可以开启， 同时也会使用`ParallelOld`收集老年代。其它参数，比如`-XX:ParallelGCThreads=N`可以选择N个线程进行GC，`-XX:+UseAdaptiveSizePolicy`使用自适应调节策略。
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images\Parallel.png)
+![](/Users/fanqingwei/Desktop/学习/java/JVM/images\Parallel.png)
 
 ### SerialOld收集器
 
@@ -424,7 +428,7 @@ Java 8可以将垃圾收集器分为四类。
 
 使用`-XX:+UseConcMarkSweepGC`开启。开启过后，新生代默认使用`ParNew`，同时老年代使用`SerialOld`作为备用。
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images\cms.jpeg)
+![](/Users/fanqingwei/Desktop/学习/java/JVM/images\cms.jpeg)
 
 #### 过程
 
@@ -447,7 +451,7 @@ Java 8可以将垃圾收集器分为四类。
 
 G1是一款面向服务器的垃圾收集器，主要针对配备多颗处理器及大容量内存的机器，以极高概率满足GC停顿时间要求的同时，还具备高吞吐量性能特征
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images\G1.png)
+![](/Users/fanqingwei/Desktop/学习/java/JVM/images\G1.png)
 
 `G1`收集器与之前垃圾收集器的一个显著区别就是——之前收集器都有三个区域，新、老两代和元空间。而G1收集器只有G1区和元空间。而G1区，不像之前的收集器，分为新、老两代，而是一个一个**Region**，每个Region既可能包含新生代，也可能包含老年代。
 
@@ -535,7 +539,7 @@ Class c = Class.forName("java.lang.String")
 
 在加载完类后，在堆内存的方法区就产生了一个Class类型的对象（一个类只有一个Class对象），这个对象就包含了完整的类的结构信息，**我们可以通过这个对象看到类的结构，这个对象就像一面镜子，透过这个镜子看到类的结构，所以我们形象的称之为：反射**
 
-![image-20200328232620190](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images\image-20200328232620190.png)
+![image-20200328232620190](/Users/fanqingwei/Desktop/学习/java/JVM/images\image-20200328232620190.png)
 
 tip：反射可以获取到private修饰的成员变量和方法
 
@@ -658,7 +662,7 @@ public final Class getClass()
 
 以上方法的返回值的类型是一个Class类，此类是Java反射的源头，实际上所谓反射从程序的运行结果来看也很好理解，即：可以通过对象反射求出类的名称。
 
-![image-20200329093212035](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images\image-20200329093212035.png)
+![image-20200329093212035](/Users/fanqingwei/Desktop/学习/java/JVM/images\image-20200329093212035.png)
 
 也就是说，我们通过对象来获取到它的Class，相当于逆过程
 
@@ -874,7 +878,7 @@ public class ClassCreateDemo {
   - 使得原本无法访问的私有成员也可以访问
 - 参数值为false则指示反射的对象应该实行Java语言访问检查
 
-![image-20200329144428207](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images/image-20200329144428207.png)
+![image-20200329144428207](/Users/fanqingwei/Desktop/学习/java/JVM/images/image-20200329144428207.png)
 
 完整代码：
 
@@ -1231,7 +1235,7 @@ public class ORMDemo {
 
 ### 步骤
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images\类的加载机制.png)
+![](/Users/fanqingwei/Desktop/学习/java/JVM/images\类的加载机制.png)
 
 - 加载：将class文件字节码内容加载到内存，并将这些静态数据转换成方法区的运行时数据结构，然后生成一个代表这个类的 `java.lang.Class` 对象。
 - 链接：将Java类的二进制代码合并到JVM的运行状态之中的过程。
@@ -1326,7 +1330,7 @@ A类的无参构造方法
 - 类加载的作用：将class文件字节码内容加载到内存中，并将这些静态数据转换成方法区的运行时数据结构，然后在堆中生成了一个代表这个类的 `java.lang.Class`对象，作为方法区中类数据的访问入口。
 - 类缓存：标准的JavaSE类加载器可以按要求查找类，但是一旦某个类被加载到类加载器中，它将维持加载（缓存）一段时间。不过JVM垃圾回收机制可以回收这些Class对象
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images\加载.png)
+![](/Users/fanqingwei/Desktop/学习/java/JVM/images\加载.png)
 
 ### 类加载器种类
 
@@ -1346,7 +1350,7 @@ A类的无参构造方法
 
 负责加载用户自定义路径下的类包
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images\类加载器.png)
+![](/Users/fanqingwei/Desktop/学习/java/JVM/images\类加载器.png)
 
 代码如下：
 
@@ -1451,7 +1455,7 @@ System.out.println(System.getProperty("java.class.path"));
 
 事先委托父类加载器寻找目标类，在找不到的情况下再去在自己路径中的查找并载入目标类
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\JVM\images\image-20200329122029227.png)
+![](/Users/fanqingwei/Desktop/学习/java/JVM/images\image-20200329122029227.png)
 
 ### 双亲委派机制优势
 
@@ -1511,7 +1515,6 @@ public class GetClassInfo {
     }
 }
 ```
-
 
 
 

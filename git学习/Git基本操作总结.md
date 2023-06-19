@@ -5,6 +5,8 @@ git_flow:
 https://www.jianshu.com/p/41910dc6ef29
 https://www.git-tower.com/learn/git/ebook/cn/command-line/advanced-topics/git-flow
 
+https://zhuanlan.zhihu.com/p/198066289
+
 **托管中心**`维护远程库`
 
 - **内网：可以自己搭建一个GitLab服务器**
@@ -889,3 +891,6 @@ git --rebase会将两个分支融合成一个线性的提交，不会形成新�
 https://zhuanlan.zhihu.com/p/87053283
 
 ## 6. 变基、偏离分支(调和分支)、游离分支
+
+https://lijunde.blog.csdn.net/article/details/114106272?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2~default~CTRLIST~default-1-114106272-blog-122988071.pc_relevant_aa&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2~default~CTRLIST~default-1-114106272-blog-122988071.pc_relevant_aa&utm_relevant_index=1
+

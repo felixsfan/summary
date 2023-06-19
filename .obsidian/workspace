@@ -1,0 +1,96 @@
+{
+  "main": {
+    "id": "6f4b24dd312ee56d",
+    "type": "split",
+    "children": [
+      {
+        "id": "70bf29d1c7fe55d7",
+        "type": "leaf",
+        "state": {
+          "type": "empty",
+          "state": {}
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "6e15dad5f52b2887",
+    "type": "split",
+    "children": [
+      {
+        "id": "2132d48e740f24b7",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ccc700d0c49c7989",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "dc0539b073bd4239",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "5a2bb171ecb7cab8",
+    "type": "split",
+    "children": [
+      {
+        "id": "9e5d12c35efb97d1",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b3e1d22cdf74ed9f",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "70bf29d1c7fe55d7",
+  "lastOpenFiles": [
+    "Users/fanqingwei/Desktop/学习/linux/images/进程状态1.png.md",
+    "linux/Linux操作系统.md",
+    "Nginx/ngnix笔记.pdf",
+    "Users/fanqingwei/Desktop/学习/分布式/images/RMI.jpg.md",
+    "MQ/README.md",
+    "java/Java多线程并发/Java多线程并发.md",
+    "分布式/分布式.md",
+    "linux/linux常用知识点总结.md"
+  ]
+}

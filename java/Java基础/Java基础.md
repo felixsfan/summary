@@ -302,7 +302,7 @@ https://www.cnblogs.com/JackpotHan/p/10114046.html
 
 ### String常用方法总结
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\Java基础\images\String类的19个方法.png)
+![](/Users/fanqingwei/Desktop/学习/java/Java基础/images\String类的19个方法.png)
 
 ### String为什么设计成final不可变？
 
@@ -358,7 +358,7 @@ StringBuffer -> 单线程 效率低 安全
 
 **存在于堆中**，JDK 1.7 和 1.8 将字符串常量由永久代转移到堆中，并且 JDK 1.8 中已经不存在永久代
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\Java基础\images\字符串常量池.png)
+![](/Users/fanqingwei/Desktop/学习/java/Java基础/images\字符串常量池.png)
 
 - str1==str2 指向同一个堆对象，同时创建了一个常量池引用。
 - str3 创建了3个堆对象，只创建了一个常量池引用。
@@ -368,15 +368,15 @@ StringBuffer -> 单线程 效率低 安全
 
 ## 集合框架体系
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\Java基础\images\集合框架体系.jpg)
+![](/Users/fanqingwei/Desktop/学习/java/Java基础/images\集合框架体系.jpg)
 
 ## 集合的比较机制
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\Java基础\images\JCF-集合内容汇总.png)
+![](/Users/fanqingwei/Desktop/学习/java/Java基础/images\JCF-集合内容汇总.png)
 
 ## HashMap和HashSet的比较机制
 
-### ![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\Java基础\images\HashSet添加元素的完整流程.PNG)
+### ![](/Users/fanqingwei/Desktop/学习/java/Java基础/images\HashSet添加元素的完整流程.PNG)
 
 ## HashMap
 
@@ -393,7 +393,7 @@ StringBuffer -> 单线程 效率低 安全
    ​            ​    JDK1.8当链表长度达到8转化成红黑树，小于6时再转成链表
    ​            
    
-               ![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\Java基础\images\hashmap.jpg)
+               ![](/Users/fanqingwei/Desktop/学习/java/Java基础/images\hashmap.jpg)
 
 ### 安全性
 
@@ -487,15 +487,15 @@ resize()　方法中比较重要的是链表和红黑树的 rehash 操作，先�
 
 我们在扩容的时候，一般是把长度扩为原来2倍，所以，元素的位置要么是在原位置，要么是在原位置再移动2次幂的位置。看下图可以明白这句话的意思，n为table的长度，图（a）表示扩容前的key1和key2两种key确定索引位置的示例，图（b）表示扩容后key1和key2两种key确定索引位置的示例，其中hash1是key1对应的哈希与高位运算结果。
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\Java基础\images\扩容.jpg)
+![](/Users/fanqingwei/Desktop/学习/java/Java基础/images\扩容.jpg)
 
 　元素在重新计算hash之后，因为n变为2倍，那么n-1的mask范围在高位多1bit(红色)，因此新的index就会发生这样的变化：
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\Java基础\images\扩容1.jpg)
+![](/Users/fanqingwei/Desktop/学习/java/Java基础/images\扩容1.jpg)
 
 因此，我们在扩充HashMap的时候，只需要看看原来的hash值新增的那个bit是1还是0就好了，是0的话索引没变，是1的话索引变成“原索引+oldCap”，可以看看下图为16扩充为32的resize示意图：
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\Java基础\images\扩容2.jpg)
+![](/Users/fanqingwei/Desktop/学习/java/Java基础/images\扩容2.jpg)
 
  这个算法很巧妙，既省去了重新计算hash值的时间，而且同时，由于新增的1bit是0还是1可以认为是随机的，因此resize的过程，均匀的把之前的冲突的节点分散到新的槽中了。
 
@@ -543,11 +543,11 @@ JDK 1.7 中，采用分段锁的机制，实现并发的更新操作，底层采
 
 ③、每个桶是由若干个 HashEntry 对象链接起来的链表
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\Java基础\images\640.png)
+![](/Users/fanqingwei/Desktop/学习/java/Java基础/images\640.png)
 
 JDK 1.8 中，采用Node + CAS + Synchronized来保证并发安全。取消类 Segment，直接用 table 数组存储键值对；当 HashEntry 对象组成的链表长度超过 TREEIFY_THRESHOLD 时，链表转换为红黑树，提升性能。底层变更为数组 + 链表 + 红黑树。
 
-![](C:\Users\felixsfan\Desktop\办公机备份\学习\java\Java基础\images\641.png)
+![](/Users/fanqingwei/Desktop/学习/java/Java基础/images\641.png)
 
 **１．一个线程进行put/remove操作时，对桶（链表 or 红黑树）加上synchronized独占锁，其他线程仍然可以访问其他桶；**
 
@@ -642,10 +642,10 @@ Hash算法只是一个定义，并没有规定具体的实现。涉及到分布�
 比如说，我们的关键字集合为{12,67,56,16,25,37,22,29,15,47,48,34},表长为12。 我们用散列函数f(key) = key mod l2 
 当计算前S个数{12,67,56,16,25}时，都是没有冲突的散列地址，直接存入： 
 
-![这里写图片描述](C:\Users\felixsfan\Desktop\办公机备份\学习\java\Java基础\images\20170210213355178.png) 
+![这里写图片描述](/Users/fanqingwei/Desktop/学习/java/Java基础/images\20170210213355178.png) 
 计算key = 37时，发现f(37) = 1，此时就与25所在的位置冲突。 
 于是我们应用上面的公式f(37) = (f(37)+1) mod 12 = 2。于是将37存入下标为2的位置： 
-![这里写图片描述](C:\Users\felixsfan\Desktop\办公机备份\学习\java\Java基础\images\20170210213443522.png)
+![这里写图片描述](/Users/fanqingwei/Desktop/学习/java/Java基础/images\20170210213443522.png)
 
 - 二次哈希法：
 
