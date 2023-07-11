@@ -2973,6 +2973,7 @@ pop3 110
 
 ```shell
 systemctl status iptables
+systemctl status firewalld
 ```
 
 停止firewall
@@ -3023,6 +3024,7 @@ firewall-cmd --zone=public --add-port=80/tcp --permanent;开启80端口
 
 ```shell
 firewall-cmd --list-ports
+firewall-cmd --query-port=<port_number>/tcp：查询指定端口是否开放
 ```
 
 查看端口号占用
@@ -3317,7 +3319,16 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 有读者可能会认为，C++ 兼容 C 语言，因此对于 C 语言程序来说，使用 gcc 编译还是使用 g++ 编译，应该没有什么区别，事实并非如此。严格来说，C++ 标准和 C 语言标准的语法要求是有区别的。举个例子：
 
 ```shell
-//位于 demo.c 文件中#include <stdio.h>int main(){    const char * a = "abc";    printStr(a);    return;}int printStr(const char* str){    printf(str);}
+//位于 demo.c 文件中
+#include <stdio.h>
+int main(){   
+	const char * a = "abc";   
+	printStr(a);    
+	return;
+}
+int printStr(const char* str){    
+	printf(str);
+}
 ```
 
 如上所示，这是一段不规范的 C 语言代码。如果我们使用 gcc 指令编译，如下所示：

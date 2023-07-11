@@ -337,3 +337,638 @@ GOPATH:
 - Directory：用来设置 main 包所在的目录，不能为空；
 - Output directory：用来设置编译后生成的可执行文件的存放目录，可以为空，为空时默认不生成可执行文件；
 - Working directory：用来设置程序的运行目录，可以与“Directory”的设置相同，但是不能为空。
+
+# 4. GO 结构体三种主要实例化方法及其内存分配区别
+
+结构体是众多属性的集合，每个属性都有其类型和值。在对结构体的使用中，结构体的初始化必不可少，本文列举Go中主要的几种初始化方法及示例，最后从内存分配角度分析了其区别。
+
+------
+
+## 4.1 三种主要实例化方法
+
+### 1. VAR 声明
+
+```go
+type person struct{
+	age   int
+	name  string
+}
+
+func main()  {
+	var  fan person
+	fan.age = 10
+	fan.name = "fan"
+}
+
+1234567891011
+```
+
+------
+
+### 2.NEW关键字
+
+方式1：
+
+```go
+func main()  {
+	fan := new(person)
+	fan.name = "fan"
+	fan.age = 26
+}
+12345
+```
+
+方式2：
+
+```go
+func main()  {
+	fan := &person{
+		26,"fan"
+	}
+	fmt.Println(fan.age)
+}
+123456
+```
+
+### 3. 赋值初始化
+
+方式1：
+
+```go
+func main()  {
+	fan := person{
+		name: "fan",
+		age:  10,
+	}
+}
+
+1234567
+```
+
+方式2：
+
+```go
+func main()  {
+	fan := person{
+		"fan",
+		 10,
+	}
+}
+
+12345678
+```
+
+方式1和方式2区别：**赋值顺序**；方式2必须对应结构体定义顺序；
+
+------
+
+## 4.2 内存布局区别
+
+### 1.VAR 声明
+
+![是发哦文件](https://www.freesion.com/images/632/9a8f547e537f90e05f90251ab5a1a878.png)
+var p point 为p分配内存，并零值化；
+
+### 2.NEW关键字
+
+![在这里插入图片描述](https://www.freesion.com/images/117/c75042ad357591ce02239932c2ca02cd.png)
+new返回一个指向Point的指针；
+
+### 3. 赋值初始化
+
+![在这里插入图片描述](https://www.freesion.com/images/987/39bcfe636380feacdcf1ac220f87e1db.png)
+
+# 5. 常用标准库之-fmt
+
+## 5.1 向外输出
+
+标准库`fmt`提供了以下几种输出相关函数。
+
+### **5.1.1 Print**
+
+`Print`函数直接输出内容
+
+`Printf`函数支持格式化输出字符串
+
+`Println`函数会在输出内容的结尾添加一个换行符
+
+```go
+func Print(a ...interface{}) (n int, err error)
+func Printf(format string, a ...interface{}) (n int, err error)
+func Println(a ...interface{}) (n int, err error)
+```
+
+举个简单的例子：
+
+```go
+func main() {
+    fmt.Print("lqz is NB")
+    name := "lqz"
+    fmt.Printf("我是：%s\n", name)
+    fmt.Println("打印并换行")
+}
+```
+
+执行上面的代码输出：
+
+```go
+lqz is NB我是：lqz
+打印并换行
+```
+
+### **5.1.2 格式化输出占位符**
+
+`*printf`系列函数都支持format格式化参数，在这里我们按照占位符将被替换的变量类型划分，方便查询和记忆。
+
+#### **通用占位符**
+
+| 占位符 | 说明                                           |
+| ------ | ---------------------------------------------- |
+| %v     | 值的默认格式输出（不知道用什么占都可以用这个） |
+| %+v    | 类似于%v，但输出结构体时会输出字段名           |
+| %#v    | 值的Go语法表示                                 |
+| %T     | 打印值的类型                                   |
+| %%     | 百分号                                         |
+
+示例代码如下：
+
+```go
+    fmt.Printf("名字是：%v\n","lqz")
+    fmt.Printf("年龄是：%v\n",19)
+    p:= struct {
+        name string
+        age int
+    }{"lqz",19}
+    fmt.Printf("结构体内容为：%v\n",p)
+    fmt.Printf("结构体内容为(带字段名)：%+v\n",p) // 输出结构体是会带name
+    fmt.Printf("结构体内容为(值的Go语法表示)：%#v\n",p) // 输出结构体是会带name
+
+
+    fmt.Printf("切片内容为：%v\n",[]int{4,5,6})
+    fmt.Printf("切片内容为(值的Go语法表示)：%#v\n",[]int{4,5,6})
+
+    fmt.Printf("切片值的类型为：%T\n",[]int{4,5,6})
+    fmt.Printf("字符串值的类型为：%T\n","lqz")
+
+    fmt.Printf("打印百分百：100%%\n")
+```
+
+输出结果如下：
+
+```bash
+名字是：lqz
+年龄是：19
+结构体内容为：{lqz 19}
+结构体内容为(带字段名)：{name:lqz age:19}
+结构体内容为(值的Go语法表示)：struct { name string; age int }{name:"lqz", age:19}
+切片内容为：[4 5 6]
+切片内容为(值的Go语法表示)：[]int{4, 5, 6}
+切片值的类型为：[]int
+字符串值的类型为：string
+打印百分百：100%
+
+```
+
+#### **布尔型**
+
+| 占位符 | 说明        |
+| ------ | ----------- |
+| %t     | true或false |
+
+```go
+var limit bool = false;
+fmt.Printf("limit=%t \n",limit)
+```
+
+#### **整型**
+
+| 占位符 | 说明                                                         |
+| ------ | ------------------------------------------------------------ |
+| %b     | 表示为二进制                                                 |
+| %c     | 该值对应的unicode码值                                        |
+| %d     | 表示为十进制                                                 |
+| %o     | 表示为八进制                                                 |
+| %x     | 表示为十六进制，使用a-f                                      |
+| %X     | 表示为十六进制，使用A-F                                      |
+| %U     | 表示为Unicode格式：U+1234，等价于”U+%04X”                    |
+| %q     | 该值对应的单引号括起来的go语法字符字面值，必要时会采用安全的转义表示 |
+
+示例代码如下：
+
+```go
+    n := 3333
+    fmt.Printf("二进制表示：%b\n", n)
+    fmt.Printf("unicode对应的字符：%c\n", n)
+    fmt.Printf("十进制表示：%d\n", n)
+    fmt.Printf("八进制表示：%o\n", 9)
+    fmt.Printf("十六进制小写：%x\n", 123)
+    fmt.Printf("十六进制大写：%X\n", 123)
+    fmt.Printf("用引号引起来的字符字面值：%q\n", 65)
+```
+
+输出结果如下：
+
+```bash
+二进制表示：110100000101
+unicode对应的字符：അ
+十进制表示：3333
+八进制表示：11
+十六进制小写：7b
+十六进制大写：7B
+用引号引起来的字符字面值：'A'
+```
+
+#### **浮点数与复数**
+
+| 占位符 | 说明                                                   |
+| ------ | ------------------------------------------------------ |
+| %b     | 无小数部分、二进制指数的科学计数法，如-123456p-78      |
+| %e     | 科学计数法，如-1234.456e+78                            |
+| %E     | 科学计数法，如-1234.456E+78                            |
+| %f     | 有小数部分但无指数部分，如123.456                      |
+| %F     | 等价于%f                                               |
+| %g     | 根据实际情况采用%e或%f格式（以获得更简洁、准确的输出） |
+| %G     | 根据实际情况采用%E或%F格式（以获得更简洁、准确的输出） |
+
+示例代码如下：
+
+```go
+	f := 3.14159
+	fmt.Printf("无小数部分、二进制指数的科学计数法，(如-123456p-78):%b\n", f)
+	fmt.Printf("科学计数法(-1234.456e+78)：%e\n", f)
+	fmt.Printf("科学计数法(如-1234.456E+78)：%E\n", f)
+	fmt.Printf("有小数部分但无指数部分:%f\n", f)
+	fmt.Printf("有小数部分但无指数部分:%F\n", f)
+	fmt.Printf("根据实际情况采用%%e或%%f格式（以获得更简洁、准确的输出）:%g\n", f)
+	fmt.Printf("根据实际情况采用%%E或%%F格式（以获得更简洁、准确的输出）:%G\n", f)
+```
+
+输出结果如下：
+
+```bash
+无小数部分、二进制指数的科学计数法，(如-123456p-78):7074231776675438p-51
+科学计数法(-1234.456e+78)：3.141590e+00
+科学计数法(如-1234.456E+78)：3.141590E+00
+有小数部分但无指数部分:3.141590
+有小数部分但无指数部分:3.141590
+根据实际情况采用%e或%f格式（以获得更简洁、准确的输出）:3.14159
+根据实际情况采用%E或%F格式（以获得更简洁、准确的输出）:3.14159
+```
+
+#### **字符串和[]byte**
+
+| 占位符 | 说明                                                         |
+| ------ | ------------------------------------------------------------ |
+| %s     | 直接输出字符串或者[]byte                                     |
+| %q     | 该值对应的双引号括起来的go语法字符串字面值，必要时会采用安全的转义表示 |
+| %x     | 每个字节用两字符十六进制数表示（使用a-f）                    |
+| %X     | 每个字节用两字符十六进制数表示（使用A-F）                    |
+
+示例代码如下：
+
+```go
+	name:="lqz"
+	b:=[]byte{'l','q','z',65}
+	fmt.Printf("字符串为：%s\n",name)
+	fmt.Printf("切片为：%s\n",b)
+
+	fmt.Printf("双引号括起来的go语法字符串字面值：%q\n",name)
+	fmt.Printf("双引号括起来的go语法字符串字面值：%q\n",b)
+
+	fmt.Printf("每个字节用两字符十六进制数表示：%x\n",name)
+	fmt.Printf("每个字节用两字符十六进制数表示：%x\n",b)
+
+	fmt.Printf("每个字节用两字符十六进制数表示（使用a-f）：%X\n",name)
+	fmt.Printf("每个字节用两字符十六进制数表示（使用A-F）：%X\n",b)
+```
+
+输出结果如下：
+
+```bash
+字符串为：lqz
+切片为：lqzA
+双引号括起来的go语法字符串字面值："lqz"
+双引号括起来的go语法字符串字面值："lqzA"
+每个字节用两字符十六进制数表示：6c717a
+每个字节用两字符十六进制数表示：6c717a41
+每个字节用两字符十六进制数表示（使用a-f）：6c717a
+每个字节用两字符十六进制数表示（使用A-F）：6C717A41
+```
+
+#### **指针**
+
+| 占位符 | 说明                           |
+| ------ | ------------------------------ |
+| %p     | 表示为十六进制，并加上前导的0x |
+
+示例代码如下：
+
+```go
+	a := 99
+	fmt.Printf("%p\n", &a)
+	fmt.Printf("%#p\n", &a)
+```
+
+输出结果如下：
+
+```bash
+0xc000018078
+c000018078
+```
+
+#### **宽度标识符**
+
+宽度通过一个紧跟在百分号后面的十进制数指定，如果未指定宽度，则表示值时除必需之外不作填充。精度通过（可选的）宽度后跟点号后跟的十进制数指定。如果未指定精度，会使用默认精度；如果点号后没有跟数字，表示精度为0。举例如下：
+
+| 占位符 | 说明               |
+| ------ | ------------------ |
+| %f     | 默认宽度，默认精度 |
+| %9f    | 宽度9，默认精度    |
+| %.2f   | 默认宽度，精度2    |
+| %9.2f  | 宽度9，精度2       |
+| %9.f   | 宽度9，精度0       |
+
+示例代码如下：
+
+```go
+n := 12.34
+fmt.Printf("%f\n", n)
+fmt.Printf("%9f\n", n)
+fmt.Printf("%.2f\n", n)
+fmt.Printf("%9.2f\n", n)
+fmt.Printf("%9.f\n", n)
+```
+
+输出结果如下：
+
+```bash
+默认宽度，默认精度:3.141593
+宽度9，默认精度: 3.141593
+默认宽度，精度2:3.14
+宽度9，精度2:     3.14
+宽度9，精度0:        3
+```
+
+#### **其他flag**
+
+| 占位符 | 说明                                                         |
+| ------ | ------------------------------------------------------------ |
+| 'x'    | 总是输出数值的正负号；对%q（%+q）会生成全部是ASCII字符的输出（通过转义）； |
+| ''     | 对数值，正数前加空格而负数前加负号；对字符串采用%x或%X时（% x或% X）会给各打印的字节之间加空格 |
+| '-'    | 在输出右边填充空白而不是默认的左边（即从默认的右对齐切换为左对齐）； |
+| '#'    | 八进制数前加0（%#o），十六进制数前加0x（%#x）或0X（%#X），指针去掉前面的0x（%#p）对%q（%#q），对%U（%#U）会输出空格和单引号括起来的go字面值； |
+| '0'    | 使用0而不是空格填充，对于数值类型会把填充的0放在正负号后面； |
+
+举个例子：
+
+```go
+	s := "刘清政"
+	fmt.Printf("正常字符串输出：%s\n", s)
+	fmt.Printf("宽度是5，右对齐：%5s\n", s)
+	fmt.Printf("宽度是5，左对齐：%-5s\n", s)
+	fmt.Printf("总长度为3,截取2个，右对齐：%3.2s\n", s)
+	fmt.Printf("总长度为3,截取2个，左对齐：%-3.2s\n", s)
+	fmt.Printf("宽度为5，只要2个字符：%5.2s\n", s)
+	fmt.Printf("宽度为5，不够用0补齐：%05s\n", s)
+```
+
+输出结果如下：
+
+```bash
+正常字符串输出：刘清政
+宽度是5，右对齐：  刘清政
+宽度是5，左对齐：刘清政  
+总长度为3,截取2个，右对齐： 刘清
+总长度为3,截取2个，左对齐：刘清 
+宽度为5，只要2个字符：   刘清
+宽度为5，不够用0补齐：00刘清政
+```
+
+### **5.1.3 Fprint**
+
+`Fprint`系列函数会将内容输出到一个`io.Writer`接口类型的变量`w`中，我们通常用这个函数往文件中写入内容。
+
+```go
+func Fprint(w io.Writer, a ...interface{}) (n int, err error)
+func Fprintf(w io.Writer, format string, a ...interface{}) (n int, err error)
+func Fprintln(w io.Writer, a ...interface{}) (n int, err error)
+```
+
+举个例子：
+
+```go
+func main() {
+	// 向标准输出写入内容
+	fmt.Fprintln(os.Stdout, "向标准输出(控制台)写入内容")
+	fileObj, err := os.OpenFile("./xx.txt", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
+	if err != nil {
+		fmt.Println("打开文件出错，err:", err)
+		return
+	}
+	name := "lqz is nb"
+	// 向打开的文件句柄中写入内容
+	fmt.Fprintf(fileObj, "往文件中(标准输出)写如信息：%s", name)
+
+}
+```
+
+注意，只要满足`io.Writer`接口的类型都支持写入
+
+### **5.1.4 Sprint**
+
+`Sprint`系列函数会把传入的数据生成并返回一个字符串。
+
+```go
+func Sprint(a ...interface{}) string
+func Sprintf(format string, a ...interface{}) string
+func Sprintln(a ...interface{}) string
+```
+
+简单的示例代码如下：
+
+```go
+	s1 := fmt.Sprint("lqz")
+	name := "lqz"
+	age := 18
+	s2 := fmt.Sprintf("姓名:%s,年龄:%d", name, age)
+	s3 := fmt.Sprintln("lqz is nb")
+	fmt.Println(s1, s2, s3)
+lqz 姓名:lqz,年龄:18 lqz is nb
+```
+
+
+
+### **5.1.5 Errorf**
+
+`Errorf`函数根据format参数生成格式化字符串并返回一个包含该字符串的错误。
+
+```go
+func Errorf(format string, a ...interface{}) error
+```
+
+通常使用这种方式来自定义错误类型，例如：
+
+```go
+err := fmt.Errorf("这是一个错误")
+```
+
+Go1.13后版本为`fmt.Errorf`函数新加了一个`%w`占位符用来生成一个可以包裹Error的Wrapping Error。
+
+```go
+e := errors.New("原始错误e")
+w := fmt.Errorf("Wrap了一个错误%w", e)
+	err := fmt.Errorf("这是一个错误")
+	fmt.Printf("类型是：%T，值是：%v",err,err)
+	fmt.Println("-----")
+	e := errors.New("原始错误e")
+	w := fmt.Errorf("Wrap了一个错误：%w", e)
+	fmt.Println(w)
+类型是：*errors.errorString，值是：这是一个错误-----
+Wrap了一个错误：原始错误e
+```
+
+## 5.2 获取输入
+
+Go语言`fmt`包下有`fmt.Scan`、`fmt.Scanf`、`fmt.Scanln`三个函数，可以在程序运行过程中从标准输入获取用户的输入。
+
+### 5.2.1 fmt.Scan
+
+函数定签名如下：
+
+```go
+func Scan(a ...interface{}) (n int, err error)
+```
+
+- Scan从标准输入扫描文本，读取由空白符分隔的值保存到传递给本函数的参数中，换行符视为空白符。
+- 本函数返回成功扫描的数据个数和遇到的任何错误。如果读取的数据个数比提供的参数少，会返回一个错误报告原因。
+
+具体代码示例如下：
+
+```go
+	var (
+		name string
+		age  int
+	)
+	fmt.Scan(&name, &age)
+	fmt.Printf("输入的值为： 姓名:%s 年龄:%d \n", name, age)
+```
+
+将上面的代码编译后在终端执行，在终端依次输入`小王子`、`28`和`false`使用空格分隔。
+
+```go
+lqz 19
+// 或者
+lqz
+19
+```
+
+`fmt.Scan`从标准输入中扫描用户输入的数据，将以空白符分隔的数据分别存入指定的参数。
+
+### 5.2.2 fmt.Scanf
+
+函数签名如下：
+
+```go
+func Scanf(format string, a ...interface{}) (n int, err error)
+```
+
+- Scanf从标准输入扫描文本，根据format参数指定的格式去读取由空白符分隔的值保存到传递给本函数的参数中。
+- 本函数返回成功扫描的数据个数和遇到的任何错误。
+
+代码示例如下：
+
+```go
+var (
+		name string
+		age  int
+	)
+	fmt.Scanf("name:%s age:%d", &name, &age) // 在控制台按照该格式输入
+	fmt.Printf("扫描结果： 姓名:%s 年龄:%d \n", name, age)
+```
+
+将上面的代码编译后在终端执行，在终端按照指定的格式依次输入`小王子`、`28`和`false`。
+
+```go
+// 控制台按如下格式输入
+name:lqz age:19
+扫描结果： 姓名:lqz 年龄:19 
+```
+
+`fmt.Scanf`不同于`fmt.Scan`简单的以空格作为输入数据的分隔符，`fmt.Scanf`为输入数据指定了具体的输入内容格式，只有按照格式输入数据才会被扫描并存入对应变量。
+
+例如，我们还是按照上个示例中以空格分隔的方式输入，`fmt.Scanf`就不能正确扫描到输入的数据。
+
+```bash
+lqz 19
+扫描结果： 姓名: 年龄:0 
+```
+
+### 5.2.3 fmt.Scanln
+
+函数签名如下：
+
+```go
+func Scanln(a ...interface{}) (n int, err error)
+```
+
+- Scanln类似Scan，它在遇到换行时才停止扫描。最后一个数据后面必须有换行或者到达结束位置。
+- 本函数返回成功扫描的数据个数和遇到的任何错误。
+
+具体代码示例如下：
+
+```go
+var (
+    name    string
+    age     int
+)
+fmt.Scanln(&name, &age)
+fmt.Printf("扫描结果 姓名:%s 年龄:%d \n", name, age)
+```
+
+将上面的代码编译后在终端执行，在终端依次输入`小王子`、`28`和`false`使用空格分隔。
+
+```go
+//输入：   刘清政 19  敲回车
+扫描结果 姓名:刘清政 年龄:19 
+```
+
+`fmt.Scanln`遇到回车就结束扫描了，这个比较常用。
+
+### 5.2.4 bufio.NewReader
+
+有时候我们想完整获取输入的内容，而输入的内容可能包含空格，这种情况下可以使用`bufio`包来实现。示例代码如下：
+
+```go
+reader := bufio.NewReader(os.Stdin) // 从标准输入生成读对象
+fmt.Print("请输入内容：")
+text, _ := reader.ReadString('\n') // 读到换行
+text = strings.TrimSpace(text) // 去掉空白
+fmt.Printf("%#v\n", text)
+请输入内容：输入的内容
+"输入的内容"
+```
+
+### 5.2.5 Fscan系列
+
+这几个函数功能分别类似于`fmt.Scan`、`fmt.Scanf`、`fmt.Scanln`三个函数，只不过它们不是从标准输入中读取数据而是从`io.Reader`中读取数据。
+
+```go
+func Fscan(r io.Reader, a ...interface{}) (n int, err error)
+func Fscanln(r io.Reader, a ...interface{}) (n int, err error)
+func Fscanf(r io.Reader, format string, a ...interface{}) (n int, err error)
+```
+
+### 5.2.6 Sscan系列
+
+这几个函数功能分别类似于`fmt.Scan`、`fmt.Scanf`、`fmt.Scanln`三个函数，只不过它们不是从标准输入中读取数据而是从指定字符串中读取数据。
+
+```go
+func Sscan(str string, a ...interface{}) (n int, err error)
+func Sscanln(str string, a ...interface{}) (n int, err error)
+func Sscanf(str string, format string, a ...interface{}) (n int, err error)
+var name string="lqz"
+var newName string=""
+fmt.Sscan(name,&newName) // 相当于把name的值赋值给newName
+fmt.Println(name)
+fmt.Println(newName)
+```
