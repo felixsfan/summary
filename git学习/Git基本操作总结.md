@@ -85,7 +85,7 @@ git commit -m 'commit message' fileName
 ```shell
 git log 
 git reflog  #常用
-git log --grep=h #图形显示,更直观
+git log --graph #图形显示,更直观
 git log --pretty=oneline #漂亮一行显示
 git log --oneline #简洁显示
 说明：HEAD@{移动到当前版本需要多少步}
@@ -155,6 +155,7 @@ hard:
 
 - `git reset`命令既可以回退版本，也可以把暂存区的修改回退到工作区
 - git checkout --readme.txt
+- git revert
 
 ##### 场景
 
@@ -180,7 +181,11 @@ hard:
 
 https://www.jianshu.com/p/285302d1eb73
 
-#### 1.3.8删除文件并找回
+##### git revert
+
+ https://www.cnblogs.com/liuyuelinfighting/p/16788088.html#tid-tJMBZc
+
+#### 1.3.8 删除文件并找回
 
 - **相当于建立一个快照，虽然删除了，但只要添加到暂存区，就能找回**
 
@@ -298,7 +303,8 @@ git checkeout master
 2. 选择要合并的文件
 
 ```shell
- git checkout --patch 分支名称 要合并的文件路径
+git checkout --patch 分支名称 要合并的文件路径
+git checkout <源分支> -- <文件路径>
 ```
 
 3.此时文件将合并完成 最重要的一步一定是 提交

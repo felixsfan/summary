@@ -415,6 +415,8 @@ class clazz1():
 
 ### 9.3.1 搜索路径
 
+`sys.path`是一个Python内置模块`sys`中的变量，它是一个包含模块搜索路径的列表。
+
 当你导入一个**模块(包)**，Python 解析器对模块位置的搜索顺序是：
 
 - 1、当前目录
@@ -1986,7 +1988,7 @@ pip install kafka
 pip3 install kafka
 ```
 
-##### 2.使用镜像
+##### 2. 使用镜像
 
 下载超时需要使用国内镜像，并声明可靠站点
 
@@ -2019,6 +2021,31 @@ Successfully installed kafka-1.3.5
 ```shell
 pip3 show django
 #会显示包的信息和安装地址
+```
+
+##### 4. python3 -m pip install和pip install区别
+
+`python3 -m pip install` 和 `pip install` 都是用于安装 Python 包的命令，但它们之间有一些区别。
+
+1. 命令来源：`pip install` 是直接使用 `pip` 命令进行安装，而 `python3 -m pip install` 是通过在 Python 解释器模块中运行 `pip` 命令来进行安装。
+2. Python 版本：`pip install` 默认使用系统中默认的 Python 版本。而 `python3 -m pip install` 明确指定了使用 Python 3 版本的 `pip` 命令。这对于系统中同时安装了多个 Python 版本的情况很有用。
+3. 跨平台兼容性：`python3 -m pip install` 在不同操作系统上都能正常工作，因为它使用了 Python 解释器模块来运行 `pip` 命令。而 `pip install` 可能会因为系统环境变量的设置或其他因素而导致不同操作系统上的不兼容性。
+
+综上所述，如果您确定要使用 Python 3 版本的 `pip` 命令，并且希望确保在不同操作系统上的兼容性，建议使用 `python3 -m pip install` 命令进行包的安装
+
+##### 5. 常用命令(pip --help)
+
+```shell
+# 升级包
+pip install --upgrade package_name
+# 显示已安装的包
+pip list
+# 导出已安装的包列表
+pip freeze > requirements.txt
+# 安装来自requirements.txt文件的包
+pip install -r requirements.txt
+# 显示包的详细信息
+pip show package_name
 ```
 
 ### 17.2.2 安装pip

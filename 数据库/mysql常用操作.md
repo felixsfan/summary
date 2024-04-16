@@ -30,6 +30,34 @@ limit m,n ; 从m处开始获取n条
 | order by 排序列表       | 第八步   |
 | limit 偏移 ，条目数     | 第九步   |
 
+## 1.2 多个JOIN语句
+
+在SQL中，可以使用多个JOIN语句将三个或更多的表连接起来。以下是一个三表JOIN的示例：
+
+```sql
+SELECT *
+FROM table1
+JOIN table2 ON table1.column1 = table2.column2
+JOIN table3 ON table2.column3 = table3.column4
+WHERE table1.column5 = 'value'
+```
+
+在这个示例中，我们使用两个JOIN语句将三个表连接起来。第一个JOIN语句将`table1`和`table2`连接起来，连接条件是`table1.column1 = table2.column2`。第二个JOIN语句将`table2`和`table3`连接起来，连接条件是`table2.column3 = table3.column4`。最后，我们使用WHERE子句过滤掉不符合条件的记录，其中`table1.column5 = 'value'`是过滤条件。
+
+除了使用多个JOIN语句之外，还可以使用WHERE子句中的ON条件将三个或更多的表连接起来。以下是一个三表JOIN的示例：
+
+```sql
+SELECT *
+FROM table1, table2, table3
+WHERE table1.column1 = table2.column2
+AND table2.column3 = table3.column4
+AND table1.column5 = 'value'
+```
+
+在这个示例中，我们使用WHERE子句中的ON条件将三个表连接起来。我们使用逗号将三个表列出来，然后在WHERE子句中使用AND运算符将它们连接起来。其中`table1.column1 = table2.column2`和`table2.column3 = table3.column4`是连接条件，`table1.column5 = 'value'`是过滤条件。
+
+需要注意的是，使用多个JOIN语句和WHERE子句中的ON条件都可以将三个或更多的表连接起来，但它们的语法和效率可能会有所不同。在实际使用中，应该根据具体情况选择最合适的方法。
+
 ## 1.2 mysql创建表
 
 ```mysql

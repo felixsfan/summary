@@ -1,4 +1,4 @@
-# n0. Centos和UBUNTU区别
+# 0. Centos和UBUNTU区别
 
 - centos中新建的普通用户是没有sudo权限的，如果想让普通用户拥有sudo权限需要在/etc/sudoers文件中添加用户的权限，而ubuntu系统普通用户想要使用sudo权限 直接使用sudo +命令行的方式就可以了
 - 安装软件包命令格式不一样。centos使用yum的方式，而Ubuntu使用apt-get 方式
@@ -748,7 +748,7 @@ Documents  ls           Pictures post-install.org Templates
 [root@localhost ~]# mv /root/ls /bin
 ```
 
-# 3.文本处理
+# 3. 文本处理
 
 ## cat 
 
@@ -4634,6 +4634,12 @@ du 命令的格式如下：
 28 ./sh
 188
 #统计当前目录总大小
+```
+
+查看指定目录下一级目录的磁盘使用情况
+
+```shell
+du -h --max-depth=1 /path/to/directory
 ```
 
 ### du命令和df命令的区别
